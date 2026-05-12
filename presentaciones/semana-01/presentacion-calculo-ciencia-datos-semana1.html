@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 1: Introducción al curso y repaso de Python - Cálculo aplicado a ciencia de datos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #f5f5f7;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 80px 140px 80px;
+            background: #f5f5f7;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide-header {
+            margin-bottom: 40px;
+        }
+
+        .slide-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+
+        .slide-subtitle {
+            font-size: 20px;
+            color: #6e6e73;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 280px);
+        }
+
+        .content-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .content-box h3 {
+            font-size: 24px;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+
+        .content-box p {
+            font-size: 16px;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        .content-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-box li {
+            font-size: 16px;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .content-box li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #FF8C00;
+            font-size: 20px;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .three-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .four-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5e6, #ffffff);
+            border-left: 4px solid #FF8C00;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .highlight-box p {
+            font-size: 17px;
+            color: #2d2d2d;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .stat-box {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: #FF8C00;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6e6e73;
+        }
+
+        .key-point {
+            background: #ffffff;
+            border-left: 4px solid #FF8C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e5e7;
+            border-left: 4px solid #FF8C00;
+        }
+
+        .key-point h4 {
+            color: #2d2d2d;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .key-point p {
+            color: #1d1d1f;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .comparison-table {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00);
+            color: #ffffff;
+            padding: 12px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            font-size: 14px;
+            color: #1d1d1f;
+            border-bottom: 1px solid #f5f5f7;
+        }
+
+        .code-box {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            overflow: visible;
+            height: auto;
+            min-height: fit-content;
+        }
+
+        .code-box .comment {
+            color: #6a9955;
+        }
+
+        .code-box .keyword {
+            color: #569cd6;
+        }
+
+        .code-box .string {
+            color: #ce9178;
+        }
+
+        .code-box .number {
+            color: #b5cea8;
+        }
+
+        .code-box .function {
+            color: #dcdcaa;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #2d2d2d, #FF8C00);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .logo-area {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .logo-image {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: #6e6e73;
+            font-size: 16px;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .cover-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #ffffff 100%);
+            padding: 60px 80px 140px 80px;
+        }
+
+        .cover-title {
+            font-size: 64px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00, #2d2d2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cover-subtitle {
+            font-size: 32px;
+            color: #6e6e73;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .cover-info {
+            font-size: 18px;
+            color: #1d1d1f;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 18px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .feature-card h4 {
+            font-size: 19px;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+            border-radius: 15px;
+            padding: 18px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .app-card .app-label {
+            font-size: 12px;
+            color: #FF8C00;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .app-card h4 {
+            font-size: 18px;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .app-card p {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+
+        .math-symbol {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+            color: #FF8C00;
+            font-weight: 600;
+        }
+
+        .deprecated {
+            color: #ce4040;
+            text-decoration: line-through;
+        }
+
+        .modern {
+            color: #2d8a2d;
+            font-weight: 600;
+        }
+
+        .arrow-large {
+            font-size: 24px;
+            color: #FF8C00;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-area">
+        <img src="../../assets/images/lead-logo.png" alt="Lead University" class="logo-image">
+    </div>
+
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">24</span>
+    </div>
+
+    <div class="presentation-container">
+
+        <!-- Slide 1: Portada -->
+        <div class="slide cover-slide active">
+            <h1 class="cover-title">Cálculo aplicado a ciencia de datos</h1>
+            <p class="cover-subtitle">Semana 1: introducción al curso y repaso de Python</p>
+            <div class="cover-info">
+                <p>TTCT0003<br>
+                Profesor: Jordy Alfaro Brenes<br>
+                Lead University<br>
+                II Cuatrimestre 2026</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Bienvenida y conexión con curso previo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Bienvenidos de regreso</h2>
+                <p class="slide-subtitle">No empezamos desde cero: construimos sobre lo que ya saben</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Lo que ya dominan</h3>
+                        <ul>
+                            <li>Python básico: variables, listas, funciones, loops</li>
+                            <li>Operaciones con NumPy y arrays</li>
+                            <li>Cálculo simbólico con SymPy</li>
+                            <li>Visualización con Matplotlib</li>
+                            <li>Funciones, ecuaciones y trigonometría</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Lo que vamos a sumar</h3>
+                        <ul>
+                            <li>Cálculo diferencial e integral aplicado</li>
+                            <li>Descenso de gradiente desde cero</li>
+                            <li>Diferenciación automática con PyTorch</li>
+                            <li>Métodos numéricos con SciPy</li>
+                            <li>Cálculo multivariable y optimización</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>Este curso es el puente entre las matemáticas que ya conocen y los algoritmos que entrenan modelos como ChatGPT, los filtros de Instagram o los sistemas de reconocimiento de voz. Todo eso es cálculo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Agenda de la sesión -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Agenda de hoy</h2>
+                <p class="slide-subtitle">Lo que cubriremos en esta primera sesión</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>1. Mapa del curso</h4>
+                        <p>Las 15 semanas, qué herramienta protagoniza cada tema</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>2. Aplicaciones reales</h4>
+                        <p>Por qué el cálculo importa en ciencia de datos en 2026</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>3. La pila tecnológica</h4>
+                        <p>NumPy, SymPy, Matplotlib, SciPy y PyTorch</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>4. Colab y GitHub</h4>
+                        <p>Plataformas oficiales para clases y entregas</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>5. Repaso intermedio</h4>
+                        <p>Lo esencial de Python orientado al cálculo</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>6. Demo: el gancho</h4>
+                        <p>Calcular una derivada automáticamente con 4 líneas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Aplicaciones reales (el gancho) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">¿Para qué sirve este curso?</h2>
+                <p class="slide-subtitle">Aplicaciones reales del cálculo en ciencia de datos</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="app-card">
+                        <div class="app-label">Inteligencia artificial</div>
+                        <h4>Cómo aprende ChatGPT</h4>
+                        <p>El entrenamiento de cualquier modelo de lenguaje (GPT, Gemini, Claude) es un problema de optimización resuelto con descenso de gradiente. Verán cómo en la semana 6.</p>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-label">Procesamiento de imágenes</div>
+                        <h4>Por qué Instagram comprime fotos</h4>
+                        <p>JPEG y los filtros de Instagram usan la transformada de Fourier para separar componentes de alta y baja frecuencia. Tema central de la semana 11.</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="app-card">
+                        <div class="app-label">Reconocimiento de audio</div>
+                        <h4>Cómo Shazam identifica una canción</h4>
+                        <p>Shazam convierte una señal de audio en su huella espectral usando análisis de Fourier. La misma técnica que veremos aplicada a librosa.</p>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-label">Finanzas y economía</div>
+                        <h4>Predicción del tipo de cambio</h4>
+                        <p>Modelaremos la evolución del colón frente al dólar con datos reales del BCCR usando derivadas e integración numérica.</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>El cálculo no es teoría abstracta: es la maquinaria matemática detrás de casi todo lo que llamamos hoy "inteligencia artificial".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Mapa del curso -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Mapa del curso</h2>
+                <p class="slide-subtitle">15 semanas, una herramienta protagonista por tema</p>
+            </div>
+            <div class="slide-content">
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Semanas</th>
+                                <th>Tema</th>
+                                <th>Herramienta principal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1</strong></td>
+                                <td>Repaso de Python + infraestructura</td>
+                                <td>NumPy, Matplotlib, Colab, Git</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2-3</strong></td>
+                                <td>Límites, continuidad y derivadas</td>
+                                <td>SymPy, Matplotlib</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4-5</strong></td>
+                                <td>Reglas de derivación y autograd</td>
+                                <td>SymPy + PyTorch autograd</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6</strong></td>
+                                <td>Descenso de gradiente</td>
+                                <td>NumPy + PyTorch</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8-9</strong></td>
+                                <td>Integrales y teorema fundamental</td>
+                                <td>SymPy, SciPy.integrate</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10</strong></td>
+                                <td>Técnicas de integración numérica</td>
+                                <td>SciPy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>11-12</strong></td>
+                                <td>Transformadas de Fourier y Laplace</td>
+                                <td>SciPy.fft, OpenCV, librosa</td>
+                            </tr>
+                            <tr>
+                                <td><strong>13-14</strong></td>
+                                <td>Cálculo multivariable</td>
+                                <td>NumPy, Matplotlib 3D, PyTorch</td>
+                            </tr>
+                            <tr>
+                                <td><strong>15</strong></td>
+                                <td>Presentación del proyecto integrador</td>
+                                <td>Toda la pila</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: La pila tecnológica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">La pila tecnológica del curso</h2>
+                <p class="slide-subtitle">Cinco librerías, cinco superpoderes</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="feature-card">
+                        <h4>NumPy 2.4</h4>
+                        <p>Cálculo numérico vectorizado. Es la base de todo: arrays, operaciones rápidas, álgebra lineal. Implementaremos descenso de gradiente desde cero con NumPy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>SymPy 1.14</h4>
+                        <p>Matemática simbólica. Calcula derivadas e integrales de forma exacta. Lo usaremos para verificar resultados a mano y entender el "por qué" antes del "cómo".</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="feature-card">
+                        <h4>Matplotlib 3.10</h4>
+                        <p>Visualización científica. Funciones, derivadas, integrales y superficies 3D para cálculo multivariable. Imprescindible para visualizar lo que aprendemos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>SciPy 1.17</h4>
+                        <p>Métodos numéricos profesionales: integración (quad), optimización (minimize), FFT y resolución de ecuaciones diferenciales. La caja de herramientas industrial.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <h4>PyTorch 2.10/2.11</h4>
+                    <p>El motor de la inteligencia artificial moderna. Tensores con diferenciación automática y aceleración por GPU. El mismo PyTorch que usa Meta, OpenAI y Tesla. Lo conocerán hoy en una demo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Google Colab 2026 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Google Colab: nuestro laboratorio</h2>
+                <p class="slide-subtitle">Plataforma oficial para el curso</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>¿Por qué Colab?</h3>
+                    <p>Notebook en la nube basado en Jupyter, sin instalación, con todas las librerías que usaremos preinstaladas. Funciona en cualquier dispositivo con navegador y cuenta de Google.</p>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="stat-box">
+                        <div class="stat-number">3.12</div>
+                        <div class="stat-label">Python preinstalado en Colab</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">16 GB</div>
+                        <div class="stat-label">VRAM en GPU T4 gratis</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">12 h</div>
+                        <div class="stat-label">Sesión máxima continua</div>
+                    </div>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>Atajos esenciales</h4>
+                        <p>Ctrl+Enter: ejecutar celda<br>
+                        Shift+Enter: ejecutar y avanzar<br>
+                        Ctrl+M B: nueva celda abajo<br>
+                        Ctrl+M M: convertir a Markdown</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Activar la GPU</h4>
+                        <p>Entorno de ejecución → Cambiar tipo de entorno → GPU T4. Útil cuando entrenemos modelos con PyTorch a partir de la semana 6.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: GitHub y workflow -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">GitHub: dónde viven los talleres</h2>
+                <p class="slide-subtitle">Flujo oficial de entregas del curso</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>El flujo de cada taller</h3>
+                    <ul>
+                        <li>El profesor publica el taller como template en GitHub Classroom</li>
+                        <li>Cada estudiante acepta la invitación y recibe su propio repositorio privado</li>
+                        <li>Abre el notebook directamente en Colab con el botón "Open in Colab"</li>
+                        <li>Trabaja en Colab y guarda con: Archivo → Guardar una copia en GitHub</li>
+                        <li>Cada push queda registrado y el profesor revisa y comenta en línea</li>
+                    </ul>
+                </div>
+                <div class="code-box" style="margin-top: 15px;">
+<span class="comment"># Badge para abrir un notebook directamente en Colab</span>
+[![<span class="string">Open In Colab</span>](https://colab.research.google.com/assets/colab-badge.svg)](
+    https://colab.research.google.com/github/<span class="keyword">USUARIO</span>/<span class="keyword">REPO</span>/blob/main/notebook.ipynb
+)
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Tip profesional: instalen nbstripout (pip install nbstripout) para limpiar automáticamente los outputs de los notebooks antes de cada commit. Evita conflictos y mantiene los diffs legibles.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Repaso Python -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Repaso rápido de Python</h2>
+                <p class="slide-subtitle">Lo que dan por supuesto del curso anterior</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="code-box">
+<span class="comment"># Variables y tipos</span>
+<span class="keyword">edad</span>: <span class="keyword">int</span> = <span class="number">28</span>
+<span class="keyword">precio</span>: <span class="keyword">float</span> = <span class="number">19.99</span>
+<span class="keyword">nombre</span>: <span class="keyword">str</span> = <span class="string">"María"</span>
+
+<span class="comment"># Listas y comprehensions</span>
+<span class="keyword">cuadrados</span> = [<span class="keyword">x</span>**<span class="number">2</span> <span class="keyword">for</span> <span class="keyword">x</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">10</span>)]
+<span class="comment"># [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</span>
+
+<span class="comment"># Slicing</span>
+<span class="keyword">nums</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+<span class="keyword">nums</span>[::-<span class="number">1</span>]  <span class="comment"># [5, 4, 3, 2, 1]</span>
+                    </div>
+                    <div class="code-box">
+<span class="comment"># Funciones con type hints</span>
+<span class="keyword">def</span> <span class="function">sumar</span>(<span class="keyword">a</span>: <span class="keyword">float</span>, <span class="keyword">b</span>: <span class="keyword">float</span>) -> <span class="keyword">float</span>:
+    <span class="string">"""Suma dos números."""</span>
+    <span class="keyword">return</span> <span class="keyword">a</span> + <span class="keyword">b</span>
+
+<span class="comment"># Diccionarios</span>
+<span class="keyword">estudiante</span> = {
+    <span class="string">"nombre"</span>: <span class="string">"Juan"</span>,
+    <span class="string">"nota"</span>: <span class="number">9.5</span>
+}
+
+<span class="comment"># Loops</span>
+<span class="keyword">for</span> <span class="keyword">k</span>, <span class="keyword">v</span> <span class="keyword">in</span> <span class="keyword">estudiante</span>.<span class="function">items</span>():
+    <span class="function">print</span>(<span class="keyword">k</span>, <span class="keyword">v</span>)
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>Si algo de esto les suena raro, revisen los apuntes del curso anterior antes de la próxima clase. No volveremos sobre lo básico, pero siempre estoy disponible para dudas individuales.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: NumPy vectorización -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">NumPy: vectorización y broadcasting</h2>
+                <p class="slide-subtitle">La razón por la que el descenso de gradiente es viable</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>La diferencia que cambia todo</h3>
+                    <p>Cuando entrenan un modelo de IA, calculan operaciones sobre millones de parámetros simultáneamente. Hacerlo con loops Python tomaría horas. NumPy lo hace en milisegundos con la misma sintaxis matemática.</p>
+                </div>
+                <div class="code-box" style="margin-top: 15px;">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+
+<span class="comment"># Mallas para cálculo</span>
+<span class="keyword">x</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(-<span class="number">5</span>, <span class="number">5</span>, <span class="number">1000</span>)        <span class="comment"># 1000 puntos entre -5 y 5</span>
+<span class="keyword">y</span> = <span class="keyword">np</span>.<span class="function">sin</span>(<span class="keyword">x</span>) * <span class="keyword">np</span>.<span class="function">exp</span>(-<span class="keyword">x</span>**<span class="number">2</span>/<span class="number">10</span>)         <span class="comment"># Operación vectorizada</span>
+
+<span class="comment"># Broadcasting: una idea poderosa</span>
+<span class="keyword">X</span>, <span class="keyword">Y</span> = <span class="keyword">np</span>.<span class="function">meshgrid</span>(<span class="keyword">x</span>, <span class="keyword">x</span>)              <span class="comment"># Grilla 2D</span>
+<span class="keyword">Z</span> = <span class="keyword">np</span>.<span class="function">sin</span>(<span class="keyword">X</span>) * <span class="keyword">np</span>.<span class="function">cos</span>(<span class="keyword">Y</span>)              <span class="comment"># f(x,y) en cada punto</span>
+
+<span class="comment"># Esto reemplaza un doble loop de 1000x1000 iteraciones</span>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="stat-box">
+                        <div class="stat-number">50x</div>
+                        <div class="stat-label">Más rápido que loops Python</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">N-dim</div>
+                        <div class="stat-label">Arrays de cualquier dimensión</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2.4.4</div>
+                        <div class="stat-label">Versión actual (marzo 2026)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: NumPy aplicado al cálculo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">NumPy aplicado al cálculo</h2>
+                <p class="slide-subtitle">Derivadas e integrales numéricas en 2 líneas</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+
+<span class="comment"># Definimos una función f(x) = sin(x)</span>
+<span class="keyword">x</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="keyword">np</span>.<span class="keyword">pi</span>, <span class="number">100</span>)
+<span class="keyword">f</span> = <span class="keyword">np</span>.<span class="function">sin</span>(<span class="keyword">x</span>)
+
+<span class="comment"># Derivada numérica con diferencias centradas</span>
+<span class="keyword">dfdx</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)        <span class="comment"># Aprox. de cos(x)</span>
+
+<span class="comment"># Integral numérica con la regla del trapecio</span>
+<span class="keyword">integral</span> = <span class="keyword">np</span>.<span class="function">trapezoid</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)    <span class="comment"># Aprox. de ∫sin(x)dx en [0, 2π] = 0</span>
+
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Integral aproximada: {integral:.6f}"</span>)
+<span class="comment"># Output: Integral aproximada: 0.000000</span>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>np.gradient</h4>
+                        <p>Calcula la derivada numérica usando diferencias centradas. Será la base para entender qué hace torch.autograd internamente.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>np.trapezoid</h4>
+                        <p>Regla del trapecio compuesta. Cuando no exista primitiva analítica, esta es la forma rápida de integrar numéricamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: APIs deprecadas vs modernas -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Atención: NumPy moderno</h2>
+                <p class="slide-subtitle">APIs deprecadas que aún aparecen en tutoriales viejos</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Si encuentran código con esto en internet, está desactualizado</h3>
+                    <p>NumPy 2.0 (agosto 2023) marcó muchas funciones como obsoletas. NumPy 2.4 ya las eliminó. Estos son los reemplazos que deben usar:</p>
+                </div>
+                <div class="comparison-table" style="margin-top: 15px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Antiguo (no usar)</th>
+                                <th>Moderno (usar siempre)</th>
+                                <th>Por qué</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="deprecated">np.trapz(y, x)</span></td>
+                                <td><span class="modern">np.trapezoid(y, x)</span></td>
+                                <td>Eliminado en NumPy 2.4</td>
+                            </tr>
+                            <tr>
+                                <td><span class="deprecated">np.random.seed(42)</span></td>
+                                <td><span class="modern">rng = np.random.default_rng(42)</span></td>
+                                <td>Patrón moderno desde NumPy 1.17</td>
+                            </tr>
+                            <tr>
+                                <td><span class="deprecated">np.NaN</span></td>
+                                <td><span class="modern">np.nan</span></td>
+                                <td>Removido en NumPy 2.0</td>
+                            </tr>
+                            <tr>
+                                <td><span class="deprecated">np.float</span></td>
+                                <td><span class="modern">float</span> o <span class="modern">np.float64</span></td>
+                                <td>Alias confuso eliminado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Si ChatGPT o Stack Overflow les sugiere código con las APIs antiguas, está respondiendo desde su memoria vieja. Verifiquen siempre contra la documentación oficial.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Matplotlib OO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Matplotlib moderno: interfaz orientada a objetos</h2>
+                <p class="slide-subtitle">Cambio mental clave para todo el curso</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="code-box">
+<span class="comment"># Estilo antiguo (no usar)</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
+
+<span class="keyword">plt</span>.<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">y</span>)
+<span class="keyword">plt</span>.<span class="function">title</span>(<span class="string">"Función"</span>)
+<span class="keyword">plt</span>.<span class="function">xlabel</span>(<span class="string">"x"</span>)
+<span class="keyword">plt</span>.<span class="function">show</span>()
+
+<span class="comment"># Problema: cuando hay varias</span>
+<span class="comment"># gráficas en una figura,</span>
+<span class="comment"># el estado global se vuelve</span>
+<span class="comment"># un nudo difícil de mantener</span>
+                    </div>
+                    <div class="code-box">
+<span class="comment"># Estilo moderno (recomendado)</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
+
+<span class="keyword">fig</span>, <span class="keyword">ax</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(
+    <span class="keyword">figsize</span>=(<span class="number">8</span>, <span class="number">5</span>),
+    <span class="keyword">layout</span>=<span class="string">'constrained'</span>
+)
+
+<span class="keyword">ax</span>.<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">y</span>, <span class="keyword">label</span>=<span class="string">'f(x)'</span>)
+<span class="keyword">ax</span>.<span class="function">set_title</span>(<span class="string">"Función"</span>)
+<span class="keyword">ax</span>.<span class="function">set_xlabel</span>(<span class="string">"x"</span>)
+<span class="keyword">ax</span>.<span class="function">legend</span>()
+<span class="keyword">plt</span>.<span class="function">show</span>()
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>Adoptar el patrón fig, ax = plt.subplots() desde el día uno. La documentación oficial lo recomienda explícitamente y escala mucho mejor cuando empecemos a graficar funciones, derivadas e integrales en una sola figura.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Visualización para cálculo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Visualizando el cálculo</h2>
+                <p class="slide-subtitle">Función, derivada e integral en una sola figura</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
+
+<span class="keyword">x</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">500</span>)
+<span class="keyword">f</span>     = <span class="keyword">np</span>.<span class="function">exp</span>(-<span class="keyword">x</span>**<span class="number">2</span>)              <span class="comment"># Función original</span>
+<span class="keyword">df</span>    = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)            <span class="comment"># Su derivada</span>
+<span class="keyword">F</span>     = <span class="keyword">np</span>.<span class="function">cumsum</span>(<span class="keyword">f</span>) * (<span class="keyword">x</span>[<span class="number">1</span>]-<span class="keyword">x</span>[<span class="number">0</span>])   <span class="comment"># Su integral acumulada</span>
+
+<span class="keyword">fig</span>, <span class="keyword">axes</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(<span class="number">1</span>, <span class="number">3</span>, <span class="keyword">figsize</span>=(<span class="number">14</span>, <span class="number">4</span>))
+<span class="keyword">axes</span>[<span class="number">0</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">f</span>);  <span class="keyword">axes</span>[<span class="number">0</span>].<span class="function">set_title</span>(<span class="string">"f(x) = e^(-x²)"</span>)
+<span class="keyword">axes</span>[<span class="number">1</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">df</span>); <span class="keyword">axes</span>[<span class="number">1</span>].<span class="function">set_title</span>(<span class="string">"f'(x)"</span>)
+<span class="keyword">axes</span>[<span class="number">2</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">F</span>);  <span class="keyword">axes</span>[<span class="number">2</span>].<span class="function">set_title</span>(<span class="string">"∫f(x)dx (acumulada)"</span>)
+<span class="keyword">plt</span>.<span class="function">show</span>()
+                </div>
+                <div class="key-point" style="margin-top: 15px;">
+                    <h4>Lo que verán en la semana 9: superficies 3D</h4>
+                    <p>Cuando entremos a cálculo multivariable, este mismo patrón se extenderá a plot_surface y contour para visualizar funciones f(x,y) y sus gradientes en el espacio. Por eso vale la pena dominar la interfaz orientada a objetos ahora.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: SymPy para cálculo -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">SymPy: el matemático simbólico</h2>
+                <p class="slide-subtitle">Cálculo exacto, no aproximaciones</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">sin</span>, <span class="keyword">cos</span>, <span class="keyword">exp</span>, <span class="keyword">limit</span>, <span class="keyword">diff</span>, <span class="keyword">integrate</span>, <span class="keyword">oo</span>
+
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>, <span class="keyword">real</span>=<span class="keyword">True</span>)
+
+<span class="comment"># Cálculo de límites (semana 2)</span>
+<span class="function">limit</span>(<span class="function">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>)              <span class="comment"># Resultado: 1</span>
+
+<span class="comment"># Derivadas (semana 3-4)</span>
+<span class="function">diff</span>(<span class="function">sin</span>(<span class="keyword">x</span>)**<span class="number">2</span>, <span class="keyword">x</span>)                   <span class="comment"># 2·sin(x)·cos(x)</span>
+
+<span class="comment"># Integrales (semanas 8-10)</span>
+<span class="function">integrate</span>(<span class="function">exp</span>(-<span class="keyword">x</span>**<span class="number">2</span>), (<span class="keyword">x</span>, -<span class="keyword">oo</span>, <span class="keyword">oo</span>))   <span class="comment"># √π (¡exacto!)</span>
+
+<span class="comment"># Series de Taylor (semanas 11-12)</span>
+<span class="function">exp</span>(<span class="keyword">x</span>).<span class="function">series</span>(<span class="keyword">x</span>, <span class="number">0</span>, <span class="number">5</span>)             <span class="comment"># 1 + x + x²/2 + x³/6 + ...</span>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>SymPy es nuestro juez imparcial: cuando calculen una derivada a mano, lo verificarán aquí. Cuando duden de una integral, lo confirmarán aquí. La matemática no se la deben creer al profesor, se la deben demostrar ustedes mismos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: lambdify - puente -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">El puente: lambdify</h2>
+                <p class="slide-subtitle">De SymPy simbólico a NumPy numérico</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>El problema y la solución</h3>
+                    <p>SymPy calcula derivadas en formato simbólico, pero para graficarlas necesitamos evaluarlas sobre miles de puntos. lambdify convierte cualquier expresión de SymPy en una función Python que acepta arrays de NumPy.</p>
+                </div>
+                <div class="code-box" style="margin-top: 15px;">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">sin</span>, <span class="keyword">diff</span>, <span class="keyword">lambdify</span>
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
+
+<span class="comment"># 1. Cálculo simbólico</span>
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>)
+<span class="keyword">f_sym</span> = <span class="function">sin</span>(<span class="keyword">x</span>) * <span class="keyword">x</span>**<span class="number">2</span>
+<span class="keyword">df_sym</span> = <span class="function">diff</span>(<span class="keyword">f_sym</span>, <span class="keyword">x</span>)                  <span class="comment"># Derivada simbólica</span>
+
+<span class="comment"># 2. Convertir a función NumPy</span>
+<span class="keyword">f_num</span> = <span class="function">lambdify</span>(<span class="keyword">x</span>, <span class="keyword">f_sym</span>, <span class="string">'numpy'</span>)
+<span class="keyword">df_num</span> = <span class="function">lambdify</span>(<span class="keyword">x</span>, <span class="keyword">df_sym</span>, <span class="string">'numpy'</span>)
+
+<span class="comment"># 3. Evaluar y graficar</span>
+<span class="keyword">xs</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">500</span>)
+<span class="keyword">plt</span>.<span class="function">plot</span>(<span class="keyword">xs</span>, <span class="keyword">f_num</span>(<span class="keyword">xs</span>), <span class="keyword">label</span>=<span class="string">'f(x)'</span>)
+<span class="keyword">plt</span>.<span class="function">plot</span>(<span class="keyword">xs</span>, <span class="keyword">df_num</span>(<span class="keyword">xs</span>), <span class="keyword">label</span>=<span class="string">"f'(x)"</span>)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: SciPy panorámica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">SciPy: la caja de herramientas industrial</h2>
+                <p class="slide-subtitle">Vista panorámica de lo que viene</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Qué es SciPy</h3>
+                    <p>Lo que NumPy es a un martillo, SciPy es a una caja completa de herramientas profesionales. Es la implementación de referencia de algoritmos científicos en Python.</p>
+                </div>
+                <div class="code-box" style="margin-top: 15px;">
+<span class="comment"># Integración numérica robusta (semana 10)</span>
+<span class="keyword">from</span> <span class="keyword">scipy</span> <span class="keyword">import</span> <span class="keyword">integrate</span>
+<span class="keyword">resultado</span>, <span class="keyword">error</span> = <span class="keyword">integrate</span>.<span class="function">quad</span>(<span class="keyword">lambda</span> <span class="keyword">x</span>: <span class="keyword">x</span>**<span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>)
+<span class="comment"># Output: (21.333..., 2.37e-13) — valor y estimación de error</span>
+
+<span class="comment"># Optimización (compararemos con descenso de gradiente)</span>
+<span class="keyword">from</span> <span class="keyword">scipy.optimize</span> <span class="keyword">import</span> <span class="keyword">minimize</span>
+<span class="keyword">resultado</span> = <span class="function">minimize</span>(<span class="keyword">lambda</span> <span class="keyword">x</span>: (<span class="keyword">x</span>-<span class="number">3</span>)**<span class="number">2</span>, <span class="keyword">x0</span>=<span class="number">0</span>)
+<span class="comment"># Output: x = 3.0 (el mínimo de la parábola)</span>
+
+<span class="comment"># Transformada de Fourier (semana 11)</span>
+<span class="keyword">from</span> <span class="keyword">scipy.fft</span> <span class="keyword">import</span> <span class="keyword">fft</span>
+<span class="keyword">espectro</span> = <span class="function">fft</span>(<span class="keyword">señal</span>)
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>No tienen que aprender SciPy completo hoy. Solo necesitan saber que existe y para qué sirve. Cada vez que lleguemos a un tema nuevo, abriremos el submódulo correspondiente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: PyTorch - el gancho -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">PyTorch: el motor de la IA moderna</h2>
+                <p class="slide-subtitle">NumPy con dos superpoderes</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>¿Qué es PyTorch?</h3>
+                    <p>Es la librería que entrenó a ChatGPT, a Stable Diffusion, a los modelos de Tesla Autopilot y a casi cualquier IA moderna que se les ocurra. Es desarrollada por Meta (Facebook) y mantenida por la Linux Foundation.</p>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="feature-card">
+                        <h4>Superpoder 1: GPU</h4>
+                        <p>Mueve los cálculos a una tarjeta gráfica con un solo comando. Hasta 100x más rápido que CPU.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Superpoder 2: autograd</h4>
+                        <p>Calcula derivadas automáticamente. Le pides la derivada y PyTorch te la entrega sin que escribas la fórmula.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Compatibilidad</h4>
+                        <p>Los tensores de PyTorch se comportan casi idénticos a los arrays de NumPy. Lo que ya saben se transfiere.</p>
+                    </div>
+                </div>
+                <div class="key-point" style="margin-top: 15px;">
+                    <h4>Versión que usaremos</h4>
+                    <p>PyTorch 2.10 viene preinstalado en Colab. La última estable es 2.11 (marzo de 2026). Cualquiera de las dos funciona perfectamente para el curso.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Demo PyTorch autograd -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Demo en vivo: una derivada en 4 líneas</h2>
+                <p class="slide-subtitle">Sin reglas memorizadas, sin papel, sin errores</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="comment"># Calculemos f'(2) para f(x) = x³ + 2x² - 5x + 1</span>
+
+<span class="comment"># 1. Declarar la variable y pedir a PyTorch que rastree gradientes</span>
+<span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">2.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+
+<span class="comment"># 2. Definir la función</span>
+<span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> + <span class="number">2</span>*<span class="keyword">x</span>**<span class="number">2</span> - <span class="number">5</span>*<span class="keyword">x</span> + <span class="number">1</span>
+
+<span class="comment"># 3. Calcular la derivada automáticamente</span>
+<span class="keyword">f</span>.<span class="function">backward</span>()
+
+<span class="comment"># 4. Leer el resultado</span>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2) = {f.item()}"</span>)
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) = {x.grad.item()}"</span>)
+
+<span class="comment"># Output:</span>
+<span class="comment"># f(2) = 7.0</span>
+<span class="comment"># f'(2) = 15.0   (porque f'(x) = 3x² + 4x - 5, en x=2: 12+8-5=15)</span>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Esto es lo que entrenó a ChatGPT, multiplicado por miles de millones de parámetros. La idea matemática es exactamente la misma que veremos en las semanas 4 a 6 con descenso de gradiente.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Datos costarricenses -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Datos costarricenses para el proyecto</h2>
+                <p class="slide-subtitle">Aplicaremos el cálculo a problemas locales reales</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="feature-card">
+                        <h4>BCCR — indicadores económicos</h4>
+                        <p>Tipo de cambio diario, inflación, IMAE. Ideal para análisis de tasas de cambio (derivadas) y tendencias (integrales). API SOAP gratuita con registro.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>INEC — datos abiertos</h4>
+                        <p>Censos, ENAHO, demografía cantonal. Útil para modelar crecimiento poblacional con funciones logísticas y exponenciales. Acceso libre en datosabiertos.inec.cr</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="feature-card">
+                        <h4>ICE / CNFL — demanda eléctrica</h4>
+                        <p>Series horarias de consumo. Análisis espectral con FFT para identificar patrones diarios y estacionales. Excelente para semana 11.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>ICT — flujo turístico</h4>
+                        <p>Llegadas internacionales mensuales. Integración de curvas para calcular acumulados anuales o predecir tendencias.</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>El proyecto final del curso es resolver un problema costarricense real con las matemáticas que aprendieron. No es un ejercicio teórico: es un primer paso hacia el portafolio profesional que les llevará a su primer empleo en ciencia de datos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Recursos recomendados -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Recursos para acompañar el curso</h2>
+                <p class="slide-subtitle">Lo que mirar fuera de clase</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Canales en español</h3>
+                        <ul>
+                            <li><strong>Dot CSV</strong> (Carlos Santana): IA y deep learning en español, producción cuidada</li>
+                            <li><strong>Codificando Bits</strong>: Python, NumPy y machine learning con explicaciones claras</li>
+                            <li><strong>Ringa Tech</strong>: ML, redes neuronales y computer vision</li>
+                            <li><strong>Píldoras Informáticas</strong>: cursos en español, módulo de Python y Pandas</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Visualizaciones imprescindibles</h3>
+                        <ul>
+                            <li><strong>3Blue1Brown — Essence of Calculus</strong>: la mejor intuición visual del cálculo en YouTube</li>
+                            <li><strong>3Blue1Brown — Neural Networks</strong>: para entender qué pasa adentro de una red neuronal</li>
+                            <li><strong>StatQuest</strong>: descenso de gradiente y backpropagation paso a paso</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-box" style="margin-top: 15px;">
+                    <h3>Documentación oficial (la fuente primaria)</h3>
+                    <ul>
+                        <li><strong>NumPy</strong>: numpy.org/doc/stable — <strong>SymPy</strong>: docs.sympy.org/latest</li>
+                        <li><strong>Matplotlib</strong>: matplotlib.org/stable — <strong>SciPy</strong>: docs.scipy.org/doc/scipy</li>
+                        <li><strong>PyTorch</strong>: pytorch.org/docs y pytorch.org/tutorials</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Evaluación -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Sistema de evaluación</h2>
+                <p class="slide-subtitle">Cómo se compone la nota final</p>
+            </div>
+            <div class="slide-content">
+                <div class="four-columns">
+                    <div class="stat-box">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">Talleres prácticos (3)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">20%</div>
+                        <div class="stat-label">Prueba parcial individual</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">20%</div>
+                        <div class="stat-label">Presentaciones grupales (2)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">30%</div>
+                        <div class="stat-label">Proyecto aplicado</div>
+                    </div>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>Talleres y presentaciones</h4>
+                        <p>Talleres en grupos de 4-5: semanas 5, 10 y 14. Presentaciones grupales en semanas 8 y 12, sobre aplicaciones avanzadas del cálculo.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Parcial y proyecto</h4>
+                        <p>Parcial individual en la semana 7 (temas 1-5). Proyecto en tres entregas: propuesta (semana 9), entrega final y presentación (semana 15).</p>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Política importante: no se aceptan entregas tardías. Si surge una emergencia justificada, comunicarse antes de la fecha de entrega, no después.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 23: Tareas para la próxima clase -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Para la próxima clase</h2>
+                <p class="slide-subtitle">Tareas concretas y preparación</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Configuración técnica obligatoria</h3>
+                    <ul>
+                        <li>Crear cuenta en GitHub (si aún no tienen una) con correo institucional</li>
+                        <li>Aceptar la invitación al GitHub Classroom del curso que les enviaré por correo</li>
+                        <li>Abrir el notebook de bienvenida en Colab y guardar una copia en GitHub</li>
+                        <li>Instalar nbstripout localmente si trabajan también desde su computadora</li>
+                    </ul>
+                </div>
+                <div class="content-box" style="margin-top: 15px;">
+                    <h3>Preparación para la semana 2: límites y continuidad</h3>
+                    <ul>
+                        <li>Ver capítulos 1 y 2 de "Essence of Calculus" de 3Blue1Brown (20 min en total, con subtítulos en español)</li>
+                        <li>Revisar el capítulo 2 de Stewart, secciones 2.1 a 2.5</li>
+                        <li>Refrescar funciones, dominio y rango si los recuerdan borrosos</li>
+                    </ul>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>El próximo lunes empezamos con la matemática en serio: límites y continuidad. Llegar con la intuición visual de 3Blue1Brown ya cargada les ahorrará la mitad del esfuerzo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 24: Cierre -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Cierre y bienvenida formal</h2>
+                <p class="slide-subtitle">Lo que se llevan de hoy</p>
+            </div>
+            <div class="slide-content">
+                <div class="key-point">
+                    <h4>Este curso es la maquinaria matemática detrás de la IA</h4>
+                    <p>Descenso de gradiente, diferenciación automática y transformadas de Fourier no son temas abstractos: son lo que hace funcionar a ChatGPT, Instagram, Shazam y a casi cualquier producto digital moderno.</p>
+                </div>
+                <div class="key-point">
+                    <h4>Construimos sobre lo que ya saben</h4>
+                    <p>No empiezan desde cero: ya manejan Python, NumPy, SymPy y Matplotlib. Este curso suma PyTorch, SciPy, cálculo diferencial e integral y aplicaciones reales.</p>
+                </div>
+                <div class="key-point">
+                    <h4>La evaluación es práctica, no memorística</h4>
+                    <p>Talleres aplicados, presentaciones, una prueba parcial y un proyecto sobre un problema costarricense real. La meta es que al final tengan un portafolio que demuestre capacidad técnica concreta.</p>
+                </div>
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <p style="text-align: center; font-size: 22px;">Bienvenidos al curso. Nos vemos el próximo lunes con límites.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
