@@ -804,11 +804,8 @@
                 <p class="slide-subtitle">La razón por la que el descenso de gradiente es viable</p>
             </div>
             <div class="slide-content">
-                <div class="content-box">
-                    <h3>La diferencia que cambia todo</h3>
-                    <p>Cuando entrenan un modelo de IA, calculan operaciones sobre millones de parámetros simultáneamente. Hacerlo con loops Python tomaría horas. NumPy lo hace en milisegundos con la misma sintaxis matemática.</p>
-                </div>
-                <div class="code-box" style="margin-top: 15px;">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">Cuando entrenan un modelo de IA, calculan operaciones sobre millones de parámetros simultáneamente. Hacerlo con loops Python tomaría horas. NumPy lo hace en milisegundos con la misma sintaxis matemática.</p>
+                <div class="code-box">
 <span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
 
 <span class="comment"># Mallas para cálculo</span>
@@ -818,10 +815,8 @@
 <span class="comment"># Broadcasting: una idea poderosa</span>
 <span class="keyword">X</span>, <span class="keyword">Y</span> = <span class="keyword">np</span>.<span class="function">meshgrid</span>(<span class="keyword">x</span>, <span class="keyword">x</span>)              <span class="comment"># Grilla 2D</span>
 <span class="keyword">Z</span> = <span class="keyword">np</span>.<span class="function">sin</span>(<span class="keyword">X</span>) * <span class="keyword">np</span>.<span class="function">cos</span>(<span class="keyword">Y</span>)              <span class="comment"># f(x,y) en cada punto</span>
-
-<span class="comment"># Esto reemplaza un doble loop de 1000x1000 iteraciones</span>
                 </div>
-                <div class="three-columns" style="margin-top: 15px;">
+                <div class="three-columns">
                     <div class="stat-box">
                         <div class="stat-number">50x</div>
                         <div class="stat-label">Más rápido que loops Python</div>
@@ -881,11 +876,8 @@
                 <p class="slide-subtitle">APIs deprecadas que aún aparecen en tutoriales viejos</p>
             </div>
             <div class="slide-content">
-                <div class="content-box">
-                    <h3>Si encuentran código con esto en internet, está desactualizado</h3>
-                    <p>NumPy 2.0 (agosto 2023) marcó muchas funciones como obsoletas. NumPy 2.4 ya las eliminó. Estos son los reemplazos que deben usar:</p>
-                </div>
-                <div class="comparison-table" style="margin-top: 15px;">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">NumPy 2.0 (agosto 2023) marcó muchas funciones como obsoletas y NumPy 2.4 ya las eliminó. Estos son los reemplazos que deben usar:</p>
+                <div class="comparison-table">
                     <table>
                         <thead>
                             <tr>
@@ -918,7 +910,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <p>Si ChatGPT o Stack Overflow les sugiere código con las APIs antiguas, está respondiendo desde su memoria vieja. Verifiquen siempre contra la documentación oficial.</p>
                 </div>
             </div>
@@ -1034,11 +1026,8 @@
                 <p class="slide-subtitle">De SymPy simbólico a NumPy numérico</p>
             </div>
             <div class="slide-content">
-                <div class="content-box">
-                    <h3>El problema y la solución</h3>
-                    <p>SymPy calcula derivadas en formato simbólico, pero para graficarlas necesitamos evaluarlas sobre miles de puntos. lambdify convierte cualquier expresión de SymPy en una función Python que acepta arrays de NumPy.</p>
-                </div>
-                <div class="code-box" style="margin-top: 15px;">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">SymPy calcula derivadas en formato simbólico, pero para graficarlas necesitamos evaluarlas sobre miles de puntos. <strong>lambdify</strong> convierte cualquier expresión de SymPy en una función Python que acepta arrays de NumPy.</p>
+                <div class="code-box">
 <span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">sin</span>, <span class="keyword">diff</span>, <span class="keyword">lambdify</span>
 <span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
 <span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
@@ -1067,11 +1056,8 @@
                 <p class="slide-subtitle">Vista panorámica de lo que viene</p>
             </div>
             <div class="slide-content">
-                <div class="content-box">
-                    <h3>Qué es SciPy</h3>
-                    <p>Lo que NumPy es a un martillo, SciPy es a una caja completa de herramientas profesionales. Es la implementación de referencia de algoritmos científicos en Python.</p>
-                </div>
-                <div class="code-box" style="margin-top: 15px;">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">Lo que NumPy es a un martillo, SciPy es a una caja completa de herramientas profesionales. Es la implementación de referencia de algoritmos científicos en Python.</p>
+                <div class="code-box">
 <span class="comment"># Integración numérica robusta (semana 10)</span>
 <span class="keyword">from</span> <span class="keyword">scipy</span> <span class="keyword">import</span> <span class="keyword">integrate</span>
 <span class="keyword">resultado</span>, <span class="keyword">error</span> = <span class="keyword">integrate</span>.<span class="function">quad</span>(<span class="keyword">lambda</span> <span class="keyword">x</span>: <span class="keyword">x</span>**<span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>)
@@ -1086,7 +1072,7 @@
 <span class="keyword">from</span> <span class="keyword">scipy.fft</span> <span class="keyword">import</span> <span class="keyword">fft</span>
 <span class="keyword">espectro</span> = <span class="function">fft</span>(<span class="keyword">señal</span>)
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <p>No tienen que aprender SciPy completo hoy. Solo necesitan saber que existe y para qué sirve. Cada vez que lleguemos a un tema nuevo, abriremos el submódulo correspondiente.</p>
                 </div>
             </div>
@@ -1133,7 +1119,6 @@
             <div class="slide-content">
                 <div class="code-box">
 <span class="keyword">import</span> <span class="keyword">torch</span>
-
 <span class="comment"># Calculemos f'(2) para f(x) = x³ + 2x² - 5x + 1</span>
 
 <span class="comment"># 1. Declarar la variable y pedir a PyTorch que rastree gradientes</span>
@@ -1146,14 +1131,10 @@
 <span class="keyword">f</span>.<span class="function">backward</span>()
 
 <span class="comment"># 4. Leer el resultado</span>
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2) = {f.item()}"</span>)
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) = {x.grad.item()}"</span>)
-
-<span class="comment"># Output:</span>
-<span class="comment"># f(2) = 7.0</span>
-<span class="comment"># f'(2) = 15.0   (porque f'(x) = 3x² + 4x - 5, en x=2: 12+8-5=15)</span>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2) = {f.item()}, f'(2) = {x.grad.item()}"</span>)
+<span class="comment"># Output: f(2) = 7.0, f'(2) = 15.0  (porque 3x²+4x-5 en x=2 → 12+8-5)</span>
                 </div>
-                <div class="highlight-box" style="margin-top: 15px;">
+                <div class="highlight-box">
                     <p>Esto es lo que entrenó a ChatGPT, multiplicado por miles de millones de parámetros. La idea matemática es exactamente la misma que veremos en las semanas 4 a 6 con descenso de gradiente.</p>
                 </div>
             </div>
