@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semana 2: Límites y continuidad - Cálculo aplicado a ciencia de datos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #f5f5f7;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 80px 140px 80px;
+            background: #f5f5f7;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .slide-header {
+            margin-bottom: 40px;
+        }
+
+        .slide-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+
+        .slide-subtitle {
+            font-size: 20px;
+            color: #6e6e73;
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 20px;
+            overflow-y: auto;
+            max-height: calc(100vh - 280px);
+        }
+
+        .content-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .content-box h3 {
+            font-size: 24px;
+            color: #2d2d2d;
+            margin-bottom: 12px;
+        }
+
+        .content-box p {
+            font-size: 16px;
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+
+        .content-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .content-box li {
+            font-size: 16px;
+            color: #1d1d1f;
+            line-height: 1.6;
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .content-box li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #FF8C00;
+            font-size: 20px;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .three-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .four-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5e6, #ffffff);
+            border-left: 4px solid #FF8C00;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .highlight-box p {
+            font-size: 17px;
+            color: #2d2d2d;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .stat-box {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            border-color: #FF8C00;
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.15);
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #6e6e73;
+        }
+
+        .key-point {
+            background: #ffffff;
+            border-left: 4px solid #FF8C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e5e7;
+            border-left: 4px solid #FF8C00;
+        }
+
+        .key-point h4 {
+            color: #2d2d2d;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .key-point p {
+            color: #1d1d1f;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .comparison-table {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00);
+            color: #ffffff;
+            padding: 12px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            font-size: 14px;
+            color: #1d1d1f;
+            border-bottom: 1px solid #f5f5f7;
+        }
+
+        .code-box {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            overflow: visible;
+            height: auto;
+            min-height: fit-content;
+        }
+
+        .code-box .comment {
+            color: #6a9955;
+        }
+
+        .code-box .keyword {
+            color: #569cd6;
+        }
+
+        .code-box .string {
+            color: #ce9178;
+        }
+
+        .code-box .number {
+            color: #b5cea8;
+        }
+
+        .code-box .function {
+            color: #dcdcaa;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-button {
+            background: linear-gradient(135deg, #2d2d2d, #FF8C00);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
+        }
+
+        .nav-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.4);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .logo-area {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .logo-image {
+            max-width: 120px;
+            height: auto;
+        }
+
+        .slide-number {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: #6e6e73;
+            font-size: 16px;
+            z-index: 1000;
+            font-weight: 500;
+        }
+
+        .cover-slide {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #ffffff 100%);
+            padding: 60px 80px 140px 80px;
+        }
+
+        .cover-title {
+            font-size: 64px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #2d2d2d, #FF8C00, #2d2d2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .cover-subtitle {
+            font-size: 32px;
+            color: #6e6e73;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .cover-info {
+            font-size: 18px;
+            color: #1d1d1f;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 18px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .feature-card h4 {
+            font-size: 19px;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+            border-radius: 15px;
+            padding: 18px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .app-card .app-label {
+            font-size: 12px;
+            color: #FF8C00;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .app-card h4 {
+            font-size: 18px;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .app-card p {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+
+        .math-symbol {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+            color: #FF8C00;
+            font-weight: 600;
+        }
+
+        .deprecated {
+            color: #ce4040;
+            text-decoration: line-through;
+        }
+
+        .modern {
+            color: #2d8a2d;
+            font-weight: 600;
+        }
+
+        .arrow-large {
+            font-size: 24px;
+            color: #FF8C00;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-area">
+        <img src="../../assets/images/lead-logo.png" alt="Lead University" class="logo-image">
+    </div>
+
+    <div class="slide-number">
+        <span id="currentSlide">1</span> / <span id="totalSlides">22</span>
+    </div>
+
+    <div class="presentation-container">
+
+        <!-- Slide 1: Portada -->
+        <div class="slide cover-slide active">
+            <h1 class="cover-title">Límites y continuidad</h1>
+            <p class="cover-subtitle">Semana 2: del concepto matemático al deep learning</p>
+            <div class="cover-info">
+                <p>TTCT0003 — Cálculo aplicado a ciencia de datos<br>
+                Profesor: Jordy Alfaro Brenes<br>
+                Lead University<br>
+                II Cuatrimestre 2026</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Conexión con la parte manual -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Lo que vimos antes del receso</h2>
+                <p class="slide-subtitle">Recapitulación rápida de la parte manual</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Ideas que ya tienen claras</h3>
+                        <ul>
+                            <li>Un límite describe a dónde se acerca f(x), no necesariamente cuánto vale en el punto</li>
+                            <li>Si los límites laterales no coinciden, el límite no existe</li>
+                            <li>La derivada es un límite del cociente diferencial</li>
+                            <li>Hay tres tipos principales de discontinuidades: evitable, de salto e infinita</li>
+                            <li>Las asíntotas horizontales describen el comportamiento al infinito</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Lo que vamos a hacer ahora</h3>
+                        <ul>
+                            <li>Calcular todos esos límites con SymPy en una sola línea</li>
+                            <li>Ver por qué la sigmoide es el ejemplo más dramático en deep learning</li>
+                            <li>Analizar el vanishing gradient con código real</li>
+                            <li>Aplicar lo aprendido a datos costarricenses del BCCR y el INEC</li>
+                            <li>Conocer el estado del arte en estabilidad numérica (2025-2026)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>La matemática a mano fue para entender el qué. Esta parte es para ver el porqué importa en el mundo real, y el cómo se hace con código moderno.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Por qué importan los límites en IA -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Por qué los límites no son un tema histórico</h2>
+                <p class="slide-subtitle">El estado del arte en 2026 sigue siendo un problema de límites</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="app-card">
+                        <div class="app-label">Estabilidad de entrenamiento</div>
+                        <h4>NVIDIA, 2024</h4>
+                        <p>Rybakov et al. observaron que cuando un LLM diverge durante el entrenamiento, "la norma L2 de las capas QKV crece más de 2x respecto a un modelo que converge". La intervención: normalizaciones que evitan que los logits exploten hacia infinito.</p>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-label">Kimi K2, julio 2025</div>
+                        <h4>53B parámetros sin un solo loss spike</h4>
+                        <p>El equipo de Moonshot AI entrenó Kimi K2 sobre 15.5 trillones de tokens con cero divergencias. La clave: QK-Clip, una técnica que recorta los logits cuando crecen sin cota (es decir, cuando su límite tiende a infinito).</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>Cuando estudian límites en este curso, están aprendiendo la herramienta diagnóstica que decide si un modelo de 15 trillones de tokens entrena exitosamente o explota a mitad del entrenamiento.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: SymPy para límites -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">SymPy: límites en una línea</h2>
+                <p class="slide-subtitle">Versión 1.14.0 (abril 2025) — la que tienen instalada</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">limit</span>, <span class="keyword">oo</span>, <span class="keyword">sin</span>, <span class="keyword">cos</span>, <span class="keyword">exp</span>
+
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>, <span class="keyword">real</span>=<span class="keyword">True</span>)
+
+<span class="comment"># Límite básico</span>
+<span class="function">limit</span>(<span class="function">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>)              <span class="comment"># Resultado: 1</span>
+
+<span class="comment"># El ejemplo 0/0 de la parte manual</span>
+<span class="function">limit</span>((<span class="keyword">x</span>**<span class="number">2</span> - <span class="number">4</span>)/(<span class="keyword">x</span> - <span class="number">2</span>), <span class="keyword">x</span>, <span class="number">2</span>)        <span class="comment"># Resultado: 4</span>
+
+<span class="comment"># Límite al infinito (oo = doble letra o minúscula)</span>
+<span class="function">limit</span>((<span class="number">1</span> + <span class="number">1</span>/<span class="keyword">x</span>)**<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="keyword">oo</span>)            <span class="comment"># E (la constante de Euler)</span>
+
+<span class="comment"># Límite de la sigmoide cuando x → −∞</span>
+<span class="function">limit</span>(<span class="number">1</span>/(<span class="number">1</span> + <span class="function">exp</span>(-<span class="keyword">x</span>)), <span class="keyword">x</span>, -<span class="keyword">oo</span>)        <span class="comment"># Resultado: 0</span>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>Por qué SymPy puede esto</h4>
+                        <p>Internamente usa heurísticas para casos comunes y, cuando fallan, recurre al algoritmo de Gruntz (un método sofisticado para límites de funciones reales).</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Para qué nos sirve</h4>
+                        <p>Para verificar todo lo que calculen a mano. SymPy es nuestro juez imparcial: ya no tienen que confiar en el profesor ni en sus apuntes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Límites laterales con SymPy -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Límites laterales en SymPy</h2>
+                <p class="slide-subtitle">El tercer argumento de limit() define la dirección</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">limit</span>, <span class="keyword">oo</span>
+
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>)
+
+<span class="comment"># Límite bilateral (no existe en el caso de 1/x)</span>
+<span class="function">limit</span>(<span class="number">1</span>/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>)                <span class="comment"># zoo (complejo infinito, "no dirigido")</span>
+
+<span class="comment"># Por la derecha: x → 0+</span>
+<span class="function">limit</span>(<span class="number">1</span>/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>, <span class="string">'+'</span>)            <span class="comment"># oo</span>
+
+<span class="comment"># Por la izquierda: x → 0−</span>
+<span class="function">limit</span>(<span class="number">1</span>/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>, <span class="string">'-'</span>)            <span class="comment"># -oo</span>
+
+<span class="comment"># Ambos lados explícitos</span>
+<span class="function">limit</span>(<span class="number">1</span>/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>, <span class="string">'+-'</span>)           <span class="comment"># zoo</span>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>El resultado <strong>zoo</strong> en SymPy significa "complejo infinito sin dirección". Es la forma que tiene SymPy de decirles que el límite no existe en sentido finito porque los laterales van por caminos opuestos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: limit() vs subs() -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Advertencia: limit() vs subs()</h2>
+                <p class="slide-subtitle">El error más común al usar SymPy para evaluar comportamiento asintótico</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="code-box">
+<span class="comment"># Estilo incorrecto</span>
+<span class="keyword">expr</span> = <span class="function">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>
+
+<span class="keyword">expr</span>.<span class="function">subs</span>(<span class="keyword">x</span>, <span class="number">0</span>)
+<span class="comment"># Output: nan (forma 0/0)</span>
+
+<span class="keyword">expr</span>.<span class="function">subs</span>(<span class="keyword">x</span>, <span class="keyword">oo</span>)
+<span class="comment"># Output: nan también</span>
+
+<span class="comment"># Razón: subs() reemplaza el</span>
+<span class="comment"># símbolo y evalúa directamente,</span>
+<span class="comment"># sin entender comportamiento</span>
+<span class="comment"># asintótico ni indeterminadas.</span>
+                    </div>
+                    <div class="code-box">
+<span class="comment"># Estilo correcto</span>
+<span class="keyword">expr</span> = <span class="function">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>
+
+<span class="function">limit</span>(<span class="keyword">expr</span>, <span class="keyword">x</span>, <span class="number">0</span>)
+<span class="comment"># Output: 1 (correcto)</span>
+
+<span class="function">limit</span>(<span class="keyword">expr</span>, <span class="keyword">x</span>, <span class="keyword">oo</span>)
+<span class="comment"># Output: 0 (correcto)</span>
+
+<span class="comment"># limit() aplica algoritmos</span>
+<span class="comment"># que reconocen las formas</span>
+<span class="comment"># 0/0, ∞/∞, 0·∞, 1^∞, etc.</span>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>La documentación oficial de SymPy lo advierte explícitamente: "incluso aunque SymPy tiene objetos para representar infinito, usarlos para evaluación no es confiable porque no rastrean cosas como tasa de crecimiento". Regla: siempre limit(), nunca subs() con infinitos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Continuidad recordada -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Continuidad: por qué importa en ciencia de datos</h2>
+                <p class="slide-subtitle">Recordatorio aplicado de las tres condiciones</p>
+            </div>
+            <div class="slide-content">
+                <div class="three-columns">
+                    <div class="stat-box">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">f(a) está definida</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">El límite cuando x → a existe</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Ese límite vale f(a)</div>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <h3>El detalle sutil que importa para deep learning</h3>
+                    <p>Una función puede ser continua sin ser diferenciable. Continua significa "se dibuja sin levantar el lápiz". Diferenciable significa además que "no tiene esquinas puntiagudas". ReLU es continua en todo R, pero tiene una esquina en x = 0 donde no es diferenciable.</p>
+                </div>
+                <div class="highlight-box">
+                    <p>Los optimizadores como SGD, Adam o Muon necesitan calcular gradientes. Si la función de pérdida tiene saltos o esquinas problemáticas, el entrenamiento se rompe. Por eso la elección de activación es una decisión sobre límites y continuidad.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tipos de discontinuidades con SymPy -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Discontinuidades clasificadas con SymPy</h2>
+                <p class="slide-subtitle">Diagnóstico automático en Colab</p>
+            </div>
+            <div class="slide-content">
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">limit</span>, <span class="keyword">oo</span>, <span class="keyword">Piecewise</span>, <span class="keyword">sin</span>
+
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>)
+
+<span class="comment"># Evitable: (x²−1)/(x−1) en x=1</span>
+<span class="keyword">f1</span> = (<span class="keyword">x</span>**<span class="number">2</span> - <span class="number">1</span>)/(<span class="keyword">x</span> - <span class="number">1</span>)
+<span class="function">limit</span>(<span class="keyword">f1</span>, <span class="keyword">x</span>, <span class="number">1</span>, <span class="string">'-'</span>), <span class="function">limit</span>(<span class="keyword">f1</span>, <span class="keyword">x</span>, <span class="number">1</span>, <span class="string">'+'</span>)
+<span class="comment"># (2, 2) → laterales coinciden pero f(1) no existe → EVITABLE</span>
+
+<span class="comment"># De salto: Heaviside en x=0</span>
+<span class="keyword">f2</span> = <span class="function">Piecewise</span>((<span class="number">0</span>, <span class="keyword">x</span> &lt; <span class="number">0</span>), (<span class="number">1</span>, <span class="keyword">True</span>))
+<span class="function">limit</span>(<span class="keyword">f2</span>, <span class="keyword">x</span>, <span class="number">0</span>, <span class="string">'-'</span>), <span class="function">limit</span>(<span class="keyword">f2</span>, <span class="keyword">x</span>, <span class="number">0</span>, <span class="string">'+'</span>)
+<span class="comment"># (0, 1) → laterales distintos → SALTO</span>
+
+<span class="comment"># Infinita: 1/x² en x=0</span>
+<span class="keyword">f3</span> = <span class="number">1</span>/<span class="keyword">x</span>**<span class="number">2</span>
+<span class="function">limit</span>(<span class="keyword">f3</span>, <span class="keyword">x</span>, <span class="number">0</span>)
+<span class="comment"># oo → límite infinito → ASINTÓTICA</span>
+                </div>
+                <div class="highlight-box">
+                    <p>Patrón mental: si los laterales coinciden pero la función no, es evitable. Si los laterales difieren, es salto. Si al menos uno es infinito, es asintótica.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: ReLU el caso central -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">ReLU: el caso más famoso de continua sin ser diferenciable</h2>
+                <p class="slide-subtitle">La activación más usada en deep learning durante una década</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Análisis matemático</h3>
+                        <p>ReLU(x) = max(0, x). Es continua en todo R (los laterales en cualquier punto coinciden con el valor de la función). Pero en x = 0:</p>
+                        <ul>
+                            <li>Derivada por la izquierda: 0</li>
+                            <li>Derivada por la derecha: 1</li>
+                            <li>Como no coinciden, la derivada NO existe en 0</li>
+                        </ul>
+                    </div>
+                    <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">0.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+<span class="keyword">y</span> = <span class="keyword">torch</span>.<span class="function">relu</span>(<span class="keyword">x</span>)
+<span class="keyword">y</span>.<span class="function">backward</span>()
+
+<span class="function">print</span>(<span class="keyword">x</span>.<span class="keyword">grad</span>.<span class="function">item</span>())
+<span class="comment"># Output: 0.0</span>
+
+<span class="comment"># PyTorch elige 0 por convención.</span>
+<span class="comment"># JAX elige 0. TensorFlow elige 0.</span>
+<span class="comment"># Es una decisión de ingeniería,</span>
+<span class="comment"># no de matemática.</span>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>Los frameworks resuelven la ambigüedad declarando que la derivada en 0 vale 0. Esto se llama subgradiente y, aunque matemáticamente no es la derivada estricta, basta para que el descenso por gradiente converja. Es el ejemplo más claro de cómo la teoría se adapta a la práctica.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Activaciones suaves -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Por qué nacieron GELU, SiLU y Mish</h2>
+                <p class="slide-subtitle">Activaciones suaves: diferenciables infinitas veces</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>La motivación</h3>
+                    <p>ReLU funciona bien pero tiene la "esquina" en 0. Las activaciones modernas suavizan esa esquina manteniendo el comportamiento general: cero para entradas muy negativas, lineal para entradas muy positivas.</p>
+                </div>
+                <div class="three-columns">
+                    <div class="feature-card">
+                        <h4>GELU</h4>
+                        <p>Gaussian Error Linear Unit. Es la activación estándar en BERT, GPT-2 y ViT. Su forma es continua y suave en todo R, con lim x→-∞ igual a 0 y asíntota oblicua y=x cuando x→+∞.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>SiLU (Swish)</h4>
+                        <p>SiLU(x) = x · σ(x). Suave en todo R. Es la activación elegida por Llama, PaLM y muchos modelos open source recientes. Mismos límites que GELU.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Mish</h4>
+                        <p>Mish(x) = x · tanh(ln(1+e^x)). Suave, no monótona en la zona negativa cercana a 0. Resultados ligeramente mejores en algunos benchmarks de visión.</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>Las tres comparten el mismo comportamiento asintótico: se "apagan" hacia 0 cuando la entrada es muy negativa, y se vuelven lineales cuando la entrada es muy positiva. La diferencia es la suavidad de la transición.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Tabla de límites de activaciones -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Mapa de límites de las activaciones modernas</h2>
+                <p class="slide-subtitle">Lo que decide su utilidad en redes profundas</p>
+            </div>
+            <div class="slide-content">
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Activación</th>
+                                <th>Límite cuando x → -∞</th>
+                                <th>Límite cuando x → +∞</th>
+                                <th>Diferenciable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sigmoide</strong></td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>Sí, suave</td>
+                            </tr>
+                            <tr>
+                                <td><strong>tanh</strong></td>
+                                <td>-1</td>
+                                <td>1</td>
+                                <td>Sí, suave</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ReLU</strong></td>
+                                <td>0</td>
+                                <td>+∞</td>
+                                <td>No en x = 0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Leaky ReLU</strong></td>
+                                <td>-∞ (pendiente α)</td>
+                                <td>+∞</td>
+                                <td>No en x = 0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>GELU</strong></td>
+                                <td>0</td>
+                                <td>+∞ (asíntota y = x)</td>
+                                <td>Sí, suave</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SiLU / Swish</strong></td>
+                                <td>0</td>
+                                <td>+∞ (asíntota y = x)</td>
+                                <td>Sí, suave</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Softplus</strong></td>
+                                <td>0</td>
+                                <td>+∞ (asíntota y = x)</td>
+                                <td>Sí, suave</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Sigmoide y tanh son las únicas acotadas en ambos extremos. Esto las hace útiles para salidas de probabilidades pero peligrosas en capas profundas, como veremos ahora.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Vanishing gradient -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Vanishing gradient: el problema clásico</h2>
+                <p class="slide-subtitle">Cuando los límites laterales producen gradientes nulos</p>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">Cuando la sigmoide recibe una entrada muy positiva (digamos 10), su salida está prácticamente en su asíntota horizontal 1. La derivada de la sigmoide en esa zona es casi cero. En una red profunda, multiplicar muchos "casi cero" da exactamente cero.</p>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="comment"># Entradas en regiones de saturación de la sigmoide</span>
+<span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>([<span class="number">-100.0</span>, <span class="number">-10.0</span>, <span class="number">0.0</span>, <span class="number">10.0</span>, <span class="number">100.0</span>],
+                 <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+<span class="keyword">y</span> = <span class="keyword">torch</span>.<span class="function">sigmoid</span>(<span class="keyword">x</span>).<span class="function">sum</span>()
+<span class="keyword">y</span>.<span class="function">backward</span>()
+
+<span class="function">print</span>(<span class="keyword">x</span>.<span class="keyword">grad</span>)
+<span class="comment"># tensor([3.7835e-44, 4.5396e-05, 2.5000e-01,</span>
+<span class="comment">#         4.5396e-05, 3.7835e-44])</span>
+
+<span class="comment"># En x=±100 el gradiente es prácticamente cero.</span>
+<span class="comment"># En 5 capas: 4.5e-5 elevado a la 5 ≈ 1.9e-22</span>
+<span class="comment"># Las primeras capas dejan de aprender por completo.</span>
+                </div>
+                <div class="highlight-box">
+                    <p>Esto explica por qué desde 2012 (AlexNet) las capas ocultas dejaron de usar sigmoide. ReLU y sus variantes mantienen un gradiente constante en el lado positivo, evitando el desvanecimiento.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Estabilidad numérica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Estabilidad numérica: límites mal calculados rompen modelos</h2>
+                <p class="slide-subtitle">La industria nunca implementa log(sigmoid(x)) directamente</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="code-box">
+<span class="comment"># Implementación ingenua (peligrosa)</span>
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+
+<span class="keyword">x</span> = <span class="number">-1000</span>
+<span class="keyword">sigmoid_x</span> = <span class="number">1</span>/(<span class="number">1</span> + <span class="keyword">np</span>.<span class="function">exp</span>(-<span class="keyword">x</span>))
+<span class="comment"># sigmoid(-1000) = 0.0 exacto</span>
+<span class="comment"># por subdesbordamiento</span>
+
+<span class="keyword">np</span>.<span class="function">log</span>(<span class="keyword">sigmoid_x</span>)
+<span class="comment"># log(0) = -inf</span>
+<span class="comment"># Si esto entra a una pérdida,</span>
+<span class="comment"># el entrenamiento se rompe</span>
+<span class="comment"># con NaN inmediatamente.</span>
+                    </div>
+                    <div class="code-box">
+<span class="comment"># Implementación profesional</span>
+<span class="keyword">from</span> <span class="keyword">scipy.special</span> <span class="keyword">import</span> <span class="keyword">log_expit</span>
+
+<span class="keyword">x</span> = <span class="number">-1000</span>
+<span class="function">log_expit</span>(<span class="keyword">x</span>)
+<span class="comment"># Output: -1000.0 (correcto)</span>
+
+<span class="comment"># Internamente NO calcula</span>
+<span class="comment"># log(1/(1+exp(-x))) directo.</span>
+<span class="comment"># Usa una reformulación que</span>
+<span class="comment"># preserva precisión sin</span>
+<span class="comment"># pasar por el infinito.</span>
+                    </div>
+                </div>
+                <div class="content-box" style="margin-top: 15px;">
+                    <h3>Funciones que ya tienen estabilidad asegurada</h3>
+                    <ul>
+                        <li><strong>scipy.special.expit</strong>: sigmoide estable para valores extremos</li>
+                        <li><strong>scipy.special.log_expit</strong>: log de la sigmoide sin pasar por log(0)</li>
+                        <li><strong>scipy.special.logsumexp</strong>: trucos para sumar exponenciales grandes</li>
+                        <li><strong>torch.nn.BCEWithLogitsLoss</strong>: fusión segura de sigmoide y log-loss</li>
+                        <li><strong>torch.nn.CrossEntropyLoss</strong>: fusión segura de softmax y log-loss</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: TBP del BCCR -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Caso costarricense: la TBP del BCCR</h2>
+                <p class="slide-subtitle">Una serie real con comportamiento asintótico</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Contexto</h3>
+                    <p>La Tasa Básica Pasiva (TBP) del Banco Central de Costa Rica alcanzó un máximo histórico reciente de 6,73% en mayo de 2023. Desde entonces ha venido decayendo: cerró 2024 en 4,13% y al 25 de diciembre de 2025 se ubicó en 3,78%.</p>
+                </div>
+                <div class="three-columns">
+                    <div class="stat-box">
+                        <div class="stat-number">6.73%</div>
+                        <div class="stat-label">Máximo (mayo 2023)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3.78%</div>
+                        <div class="stat-label">Diciembre 2025</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">3.25%</div>
+                        <div class="stat-label">TPM actual (asíntota estimada)</div>
+                    </div>
+                </div>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">from</span> <span class="keyword">scipy.optimize</span> <span class="keyword">import</span> <span class="keyword">curve_fit</span>
+
+<span class="comment"># Modelo de decaimiento asintótico</span>
+<span class="keyword">def</span> <span class="function">modelo</span>(<span class="keyword">t</span>, <span class="keyword">a</span>, <span class="keyword">b</span>, <span class="keyword">k</span>):
+    <span class="keyword">return</span> <span class="keyword">a</span> + <span class="keyword">b</span> * <span class="keyword">np</span>.<span class="function">exp</span>(-<span class="keyword">k</span> * <span class="keyword">t</span>)
+
+<span class="comment"># El parámetro a representa la asíntota horizontal:</span>
+<span class="comment"># el equilibrio de largo plazo al que la TBP converge.</span>
+<span class="comment"># Si ajustamos a la serie, recuperamos lim t→∞ TBP(t).</span>
+                </div>
+                <div class="highlight-box">
+                    <p>Este es un caso de límite al infinito en datos reales: la TBP no oscila, decae monótonamente hacia un nuevo equilibrio. Calcular ese límite es predecir hacia qué valor se está estabilizando.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: INEC población -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Caso costarricense: proyecciones poblacionales del INEC</h2>
+                <p class="slide-subtitle">La curva logística en documentos oficiales de 2025</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Cita literal del documento metodológico del INEC (junio 2025)</h3>
+                    <p style="font-style: italic; color: #2d2d2d;">"La función logística cuenta con valores teóricos del máximo y mínimo del crecimiento poblacional; es decir, con dicha función se plantea el supuesto de que con un valor máximo (cota superior) y un valor mínimo (cota inferior) del patrón de crecimiento."</p>
+                </div>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
+
+<span class="comment"># Modelo logístico estándar (INEC usa este)</span>
+<span class="keyword">def</span> <span class="function">logistica</span>(<span class="keyword">t</span>, <span class="keyword">L</span>, <span class="keyword">k</span>, <span class="keyword">t0</span>):
+    <span class="keyword">return</span> <span class="keyword">L</span> / (<span class="number">1</span> + <span class="keyword">np</span>.<span class="function">exp</span>(-<span class="keyword">k</span> * (<span class="keyword">t</span> - <span class="keyword">t0</span>)))
+
+<span class="comment"># Asíntotas (los límites al infinito):</span>
+<span class="comment"># lim t→+∞ logistica(t) = L  (capacidad de carga)</span>
+<span class="comment"># lim t→-∞ logistica(t) = 0  (origen poblacional)</span>
+
+<span class="comment"># El INEC proyecta hacia 2050 con esta estructura.</span>
+<span class="comment"># L es el límite poblacional al que tiende el cantón.</span>
+                </div>
+                <div class="highlight-box">
+                    <p>El INEC, en documentos oficiales publicados en junio de 2025, calcula explícitamente los límites al infinito de funciones logísticas para proyectar la población de cada cantón hasta 2050. La matemática que vimos hoy se usa en las decisiones de política pública costarricenses.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Cuando SymPy puede fallar -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Cuando SymPy no llega a una respuesta</h2>
+                <p class="slide-subtitle">Casos límite del solucionador y cómo manejarlos</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Situaciones reportadas en el tracker oficial de SymPy</h3>
+                    <ul>
+                        <li>Algunos límites con valor absoluto quedan sin evaluar y devuelven un objeto Limit en lugar de un valor</li>
+                        <li>Combinaciones complejas con exponenciales y raíces pueden necesitar reescritura previa</li>
+                        <li>L'Hôpital aplicada internamente a veces produce resultados parciales</li>
+                        <li>Mezclar numpy.inf con sympy.oo en la misma expresión causa errores silenciosos</li>
+                    </ul>
+                </div>
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">limit</span>, <span class="keyword">oo</span>
+<span class="keyword">from</span> <span class="keyword">mpmath</span> <span class="keyword">import</span> <span class="keyword">mp</span>, <span class="keyword">mpf</span>
+
+<span class="comment"># Buena práctica: verificar SymPy con mpmath numérico</span>
+<span class="keyword">mp</span>.<span class="keyword">dps</span> = <span class="number">50</span>  <span class="comment"># 50 dígitos decimales de precisión</span>
+
+<span class="keyword">resultado_sympy</span> = <span class="function">limit</span>(<span class="function">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>, <span class="keyword">x</span>, <span class="number">0</span>)
+<span class="keyword">resultado_mpmath</span> = <span class="function">mp_limit</span>(<span class="keyword">lambda</span> <span class="keyword">x</span>: <span class="keyword">sin</span>(<span class="keyword">x</span>)/<span class="keyword">x</span>, <span class="number">0</span>)
+
+<span class="comment"># Ambos deben coincidir hasta el nivel de precisión</span>
+                </div>
+                <div class="highlight-box">
+                    <p>Regla de oro: si SymPy entrega un valor cerrado, verificarlo numéricamente con mpmath a alta precisión. Si SymPy entrega un objeto Limit sin evaluar, intentar reescribir la expresión o cambiar de variable.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: Estado del arte 2025-2026 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Estado del arte: 2025-2026</h2>
+                <p class="slide-subtitle">Los límites como herramienta diagnóstica en LLMs modernos</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="app-card">
+                        <div class="app-label">Kimi K2, julio 2025</div>
+                        <h4>MuonClip y QK-Clip</h4>
+                        <p>El equipo de Moonshot AI observó que durante el entrenamiento "los máximos de los logits de atención superan rápidamente magnitudes de 1000". Diseñaron QK-Clip para acotar esos logits a un umbral de 100, evitando que tiendan a infinito. Resultado: pre-entrenamiento de 15.5T tokens con cero loss spikes.</p>
+                    </div>
+                    <div class="app-card">
+                        <div class="app-label">xIELU, noviembre 2024</div>
+                        <h4>Activaciones derivadas de integrales</h4>
+                        <p>Adam Huang propuso xIELU, una activación entrenable derivada integrando transformaciones afines. Combina gradiente lineal positivo y gradiente entrenable en la zona negativa. En Llama 1.1B y 3B, supera a ReLU² y SwiGLU con el mismo presupuesto computacional.</p>
+                    </div>
+                </div>
+                <div class="app-card">
+                    <div class="app-label">NVIDIA, octubre 2024</div>
+                    <h4>Estabilidad de entrenamiento en LLMs</h4>
+                    <p>Rybakov et al. documentaron que cuando un modelo diverge, las normas L2 de QKV crecen más de 2x. Propusieron QK-LN combinado con softmax capping para permitir tasas de aprendizaje 1.5x mayores sin divergencia. Toda la maquinaria se basa en analizar comportamiento límite de las activaciones internas.</p>
+                </div>
+                <div class="highlight-box">
+                    <p>El research más reciente en deep learning es, en el fondo, control sofisticado de límites al infinito. Lo que aprendieron hoy es el vocabulario base de papers publicados en NeurIPS y arXiv hace seis meses.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Errores comunes -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Errores comunes en estudiantes de ciencia de datos</h2>
+                <p class="slide-subtitle">Lo que suele aparecer en talleres y parciales</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>Confundir f(a) con el límite</h4>
+                        <p>El límite de (x²−1)/(x−1) cuando x → 1 es 2, aunque la función no exista en x = 1. Son cosas distintas.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Usar subs() con infinito</h4>
+                        <p>expr.subs(x, oo) devuelve nan en formas indeterminadas. Siempre usar limit() para evaluar comportamiento asintótico.</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>Creer que continuo implica diferenciable</h4>
+                        <p>ReLU es el contraejemplo central. Es continua en R pero no diferenciable en 0. Las dos propiedades son distintas.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Mezclar numpy.inf con sympy.oo</h4>
+                        <p>Son objetos diferentes. SymPy trabaja con su propio oo. NumPy con np.inf. Confundirlos produce errores raros y silenciosos.</p>
+                    </div>
+                </div>
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>Calcular log(0) sin estabilizar</h4>
+                        <p>Implementar log(sigmoid(x)) directamente colapsa en valores extremos. Usar siempre log_expit, logsumexp, BCEWithLogitsLoss.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Olvidar verificar resultados</h4>
+                        <p>SymPy a veces entrega objetos Limit sin evaluar. La buena práctica es comparar con evaluación numérica (mpmath o NumPy con valores cercanos al punto).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Actividad grupal -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Actividad grupal: a las salas</h2>
+                <p class="slide-subtitle">Lo que harán en los próximos 60-75 minutos</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Estructura</h3>
+                    <ul>
+                        <li><strong>Parte 1 (15 min):</strong> ejercicios a mano de límites y clasificación de discontinuidades</li>
+                        <li><strong>Parte 2 (15 min):</strong> verificación de los mismos ejercicios con SymPy en Colab</li>
+                        <li><strong>Parte 3 (15 min):</strong> exploración visual del vanishing gradient en la sigmoide vs ReLU</li>
+                        <li><strong>Parte 4 (15 min):</strong> aplicación a la serie real de la TBP del BCCR</li>
+                        <li><strong>Reflexión grupal (5-10 min):</strong> cierre en una celda de Markdown del notebook</li>
+                    </ul>
+                </div>
+                <div class="two-columns">
+                    <div class="key-point">
+                        <h4>Entregable</h4>
+                        <p>Un notebook compartido del grupo, subido al repositorio del GitHub Classroom antes del inicio de la sesión de la próxima semana.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Modalidad</h4>
+                        <p>Trabajo en los grupos estables conformados en la semana 1. El documento PDF con instrucciones detalladas está disponible en el aula virtual.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Recursos -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Recursos para profundizar</h2>
+                <p class="slide-subtitle">Material recomendado para esta semana</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Visualización intuitiva</h3>
+                        <ul>
+                            <li><strong>3Blue1Brown — Essence of Calculus, capítulos 1-2:</strong> la mejor explicación visual de límites disponible en YouTube</li>
+                            <li><strong>Dot CSV (español):</strong> explicaciones de funciones de activación y vanishing gradient</li>
+                            <li><strong>Brilliant.org:</strong> wiki interactiva de épsilon-delta con visualizaciones</li>
+                        </ul>
+                    </div>
+                    <div class="content-box">
+                        <h3>Lectura técnica</h3>
+                        <ul>
+                            <li>Stewart Cálculo, capítulo 2 (secciones 2.1-2.5)</li>
+                            <li>Documentación oficial de SymPy 1.14.0 sobre el módulo limit</li>
+                            <li>SciPy docs: special.expit, special.log_expit, special.logsumexp</li>
+                            <li>Paper arXiv:2410.16682 (NVIDIA) sobre estabilidad de entrenamiento</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>Para la próxima clase, en la que entramos a derivadas formalmente, conviene haber asentado las ideas de hoy. La derivada NO es más que un límite particular, y si los límites están claros, las derivadas vienen casi solas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Tarea para próxima clase -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Para la próxima clase</h2>
+                <p class="slide-subtitle">Lo que esperar y cómo prepararse</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Tema de la clase 3 (25 de mayo): derivadas</h3>
+                    <ul>
+                        <li>Definición formal de la derivada como límite del cociente diferencial</li>
+                        <li>Interpretación geométrica: la recta tangente</li>
+                        <li>Razones de cambio: velocidad, aceleración y tasas instantáneas</li>
+                        <li>Relación entre derivabilidad y continuidad</li>
+                        <li>Implementación de derivadas numéricas en Python</li>
+                    </ul>
+                </div>
+                <div class="content-box">
+                    <h3>Tareas concretas</h3>
+                    <ul>
+                        <li>Completar el notebook de la actividad grupal y subirlo al GitHub Classroom</li>
+                        <li>Ver el capítulo 2 de "Essence of Calculus" de 3Blue1Brown (10 minutos)</li>
+                        <li>Revisar Stewart capítulo 2, secciones 2.7 y 2.8 (introducción a derivadas)</li>
+                        <li>Repasar el ejemplo de tasa de cambio de hoy (sección 3 del machote manual)</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <p>La clase 3 abre el bloque que más se conecta con la práctica industrial. La intuición de límites que construyeron hoy es exactamente lo que necesitan para entender derivadas, descenso de gradiente y, en última instancia, cómo se entrena cualquier modelo de IA.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 22: Cierre -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Cierre de la clase 2</h2>
+                <p class="slide-subtitle">Lo que se llevan de hoy</p>
+            </div>
+            <div class="slide-content">
+                <div class="key-point">
+                    <h4>El límite es el cimiento de todo lo que viene</h4>
+                    <p>Derivadas, integrales, descenso de gradiente y transformadas: todo se construye sobre la idea de "qué pasa cuando algo se acerca a un punto sin alcanzarlo".</p>
+                </div>
+                <div class="key-point">
+                    <h4>Continuidad y diferenciabilidad son cosas distintas</h4>
+                    <p>ReLU es continua pero no diferenciable en 0. Esta sutileza define la elección de activaciones en redes neuronales modernas.</p>
+                </div>
+                <div class="key-point">
+                    <h4>El vanishing gradient se entiende mirando límites</h4>
+                    <p>La sigmoide se satura en sus asíntotas horizontales. Esa propiedad la vuelve útil para probabilidades y peligrosa en capas profundas. Misma matemática, dos consecuencias opuestas.</p>
+                </div>
+                <div class="key-point">
+                    <h4>El cálculo está en la calle costarricense</h4>
+                    <p>La TBP del BCCR converge asintóticamente. El INEC usa curvas logísticas para proyectar población. La matemática que vieron hoy alimenta decisiones de política pública nacional.</p>
+                </div>
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <p style="text-align: center; font-size: 22px;">Buen receso final. Los espero en las salas en cinco minutos.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+
+            slides[currentSlide].classList.add('active');
+            document.getElementById('currentSlide').textContent = currentSlide + 1;
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+
+        showSlide(0);
+    </script>
+</body>
+</html>
