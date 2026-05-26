@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semana 3: Principios del álgebra - Matemática básica para ciencia de datos</title>
+    <title>Semana 3: La derivada en Python - Cálculo aplicado a ciencia de datos</title>
     <style>
         * {
             margin: 0;
@@ -121,6 +121,12 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 18px;
+        }
+
+        .four-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
 
         .highlight-box {
@@ -252,6 +258,10 @@
             color: #b5cea8;
         }
 
+        .code-box .function {
+            color: #dcdcaa;
+        }
+
         .navigation {
             position: fixed;
             bottom: 40px;
@@ -373,6 +383,98 @@
             color: #1d1d1f;
             line-height: 1.4;
         }
+
+        .app-card {
+            background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+            border-radius: 15px;
+            padding: 18px;
+            border: 1px solid #e5e5e7;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 140, 0, 0.15);
+            border-color: #FF8C00;
+        }
+
+        .app-card .app-label {
+            font-size: 12px;
+            color: #FF8C00;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .app-card h4 {
+            font-size: 18px;
+            color: #2d2d2d;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .app-card p {
+            font-size: 14px;
+            color: #1d1d1f;
+            line-height: 1.4;
+        }
+
+        .math-symbol {
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-style: italic;
+            color: #FF8C00;
+            font-weight: 600;
+        }
+
+        .deprecated {
+            color: #ce4040;
+            text-decoration: line-through;
+        }
+
+        .modern {
+            color: #2d8a2d;
+            font-weight: 600;
+        }
+
+        .arrow-large {
+            font-size: 24px;
+            color: #FF8C00;
+            margin: 0 10px;
+        }
+
+        .formula-box {
+            background: #ffffff;
+            border: 2px dashed #FF8C00;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            font-size: 22px;
+            color: #2d2d2d;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .quote-box {
+            background: #ffffff;
+            border-left: 4px solid #2d2d2d;
+            padding: 18px 22px;
+            border-radius: 8px;
+            font-style: italic;
+            color: #2d2d2d;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .quote-box .quote-author {
+            display: block;
+            font-style: normal;
+            font-weight: 600;
+            color: #6e6e73;
+            font-size: 14px;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -381,757 +483,802 @@
     </div>
 
     <div class="slide-number">
-        <span id="currentSlide">1</span> / <span id="totalSlides">16</span>
+        <span id="currentSlide">1</span> / <span id="totalSlides">23</span>
     </div>
 
     <div class="presentation-container">
+
         <!-- Slide 1: Portada -->
         <div class="slide cover-slide active">
-            <h1 class="cover-title">Principios del álgebra</h1>
-            <p class="cover-subtitle">Semana 3: manipulación simbólica con SymPy</p>
+            <h1 class="cover-title">La derivada en Python</h1>
+            <p class="cover-subtitle">Semana 3: del cálculo manual al cálculo automático</p>
             <div class="cover-info">
-                <p>TTCT0023 - Matemática básica para ciencia de datos<br>
+                <p>TTCT0003 — Cálculo aplicado a ciencia de datos<br>
                 Profesor: Jordy Alfaro Brenes<br>
                 Lead University<br>
-                I Cuatrimestre 2026</p>
+                II Cuatrimestre 2026</p>
             </div>
         </div>
 
         <!-- Slide 2: Agenda -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">Agenda de hoy</h2>
-                <p class="slide-subtitle">De la teoría al código</p>
+                <h2 class="slide-title">De la pizarra al notebook</h2>
+                <p class="slide-subtitle">Lo que vimos a mano y lo que veremos ahora en Python</p>
             </div>
             <div class="slide-content">
                 <div class="two-columns">
-                    <div class="key-point">
-                        <h4>1. SymPy 1.14.0: instalación y conceptos básicos</h4>
-                        <p>Álgebra simbólica en Python</p>
+                    <div class="content-box">
+                        <h3>Lo que ya saben (parte manual)</h3>
+                        <ul>
+                            <li>Definición formal de derivada como límite</li>
+                            <li>Recta tangente y su ecuación</li>
+                            <li>Velocidad, aceleración, costo marginal</li>
+                            <li>Derivable implica continua, pero no al revés</li>
+                            <li>ReLU no es derivable en cero</li>
+                        </ul>
                     </div>
-                    <div class="key-point">
-                        <h4>2. Crear símbolos y expresiones</h4>
-                        <p>Variables matemáticas en código</p>
+                    <div class="content-box">
+                        <h3>Lo que sumamos hoy</h3>
+                        <ul>
+                            <li>Tres caminos para derivar en Python</li>
+                            <li>SciPy 1.15 y su nuevo módulo differentiate</li>
+                            <li>PyTorch autograd: el motor de la IA moderna</li>
+                            <li>Subgradientes: por qué ReLU funciona</li>
+                            <li>Aplicaciones con datos costarricenses</li>
+                        </ul>
                     </div>
                 </div>
-                <div class="two-columns">
-                    <div class="key-point">
-                        <h4>3. Expandir y simplificar expresiones</h4>
-                        <p>Productos notables automáticamente</p>
-                    </div>
-                    <div class="key-point">
-                        <h4>4. Resolver ecuaciones</h4>
-                        <p>solve() y solveset()</p>
-                    </div>
-                </div>
-                <div class="key-point">
-                    <h4>5. Aplicaciones en ML: derivación simbólica</h4>
-                    <p>Calcular gradientes para gradient descent</p>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>El gran salto: hasta ahora calcularon una derivada con papel y lápiz. A partir de hoy, van a calcular millones en milisegundos.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 3: Introducción a SymPy -->
+        <!-- Slide 3: La gran pregunta -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">¿Qué es SymPy?</h2>
-                <p class="slide-subtitle">Matemática simbólica en Python</p>
+                <h2 class="slide-title">¿Cómo deriva una computadora?</h2>
+                <p class="slide-subtitle">Spoiler: no exactamente como ustedes</p>
             </div>
             <div class="slide-content">
                 <div class="content-box">
-                    <h3>Librería de álgebra computacional</h3>
-                    <p>SymPy permite hacer operaciones matemáticas SIMBÓLICAS (no numéricas). Manipula expresiones algebraicas como lo harías en papel, pero sin errores.</p>
+                    <h3>El problema</h3>
+                    <p>Ustedes pueden derivar a mano una función como f(x) = sin(x)·e^(-x²) si tienen paciencia. Pero un modelo de lenguaje como GPT-5 tiene cerca de 1,8 billones de parámetros. Derivar a mano respecto a cada uno tomaría más años que la edad del universo.</p>
                 </div>
-                <div class="two-columns">
-                    <div class="stat-box">
-                        <div class="stat-number">1.14.0</div>
-                        <div class="stat-label">Versión actual (abril 2025)</div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="feature-card">
+                        <h4>Camino 1: numérico</h4>
+                        <p>Aproximamos con diferencias finitas. Es rápido pero impreciso. Lo usaron desde Newton.</p>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Python puro (sin dependencias)</div>
+                    <div class="feature-card">
+                        <h4>Camino 2: simbólico</h4>
+                        <p>La computadora aplica las reglas algebraicas como ustedes. Es exacto pero lento para funciones complejas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Camino 3: automático</h4>
+                        <p>Construye un grafo de operaciones y aplica la regla de la cadena. Es el corazón del deep learning.</p>
                     </div>
                 </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Hoy van a ver los tres caminos sobre la misma función, lado a lado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Camino 1 - Derivada numérica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Camino 1: derivada numérica con NumPy</h2>
+                <p class="slide-subtitle">Aproximación por diferencias finitas</p>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">La idea es exactamente la del cociente diferencial que vimos, pero con un h pequeño en lugar del límite. NumPy lo hace vectorizado sobre miles de puntos.</p>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+
+<span class="comment"># Función: f(x) = x³ - 3x</span>
+<span class="keyword">x</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">500</span>)
+<span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
+
+<span class="comment"># Derivada numérica con diferencias centradas</span>
+<span class="keyword">dfdx</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)
+
+<span class="comment"># Verificación: f'(x) debe ser 3x² - 3</span>
+<span class="comment"># En x = 1: f'(1) = 0 (mínimo local)</span>
+<span class="comment"># En x = -1: f'(-1) = 0 (máximo local)</span>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>Diferencias centradas</h4>
+                        <p>np.gradient usa la fórmula (f(x+h) - f(x-h)) / (2h), que tiene error O(h²): más preciso que la fórmula básica O(h).</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Cuándo conviene</h4>
+                        <p>Cuando solo tienen datos discretos (mediciones de sensores, series financieras) y no la fórmula analítica de la función.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: SciPy 1.15 differentiate -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Lo nuevo: scipy.differentiate</h2>
+                <p class="slide-subtitle">SciPy 1.15 (enero 2025) jubiló el viejo scipy.misc.derivative</p>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">Hasta hace poco, la función de SciPy para derivar numéricamente estaba en <code>scipy.misc.derivative</code>, pero fue eliminada en SciPy 1.12 y reemplazada por un módulo nuevo y vectorizado.</p>
                 <div class="comparison-table">
                     <table>
                         <thead>
                             <tr>
-                                <th>Característica</th>
-                                <th>NumPy (numérico)</th>
-                                <th>SymPy (simbólico)</th>
+                                <th>Antiguo (no usar)</th>
+                                <th>Moderno (usar siempre)</th>
+                                <th>Por qué</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Tipo de cálculo</strong></td>
-                                <td>Aproximado (punto flotante)</td>
-                                <td>Exacto (simbólico)</td>
+                                <td><span class="deprecated">scipy.misc.derivative(f, x0)</span></td>
+                                <td><span class="modern">scipy.differentiate.derivative(f, x0)</span></td>
+                                <td>Eliminado en SciPy 1.12</td>
                             </tr>
                             <tr>
-                                <td><strong>√2</strong></td>
-                                <td>1.41421356...</td>
-                                <td>√2 (mantiene símbolo)</td>
+                                <td><span class="deprecated">No existía</span></td>
+                                <td><span class="modern">scipy.differentiate.jacobian(f, x)</span></td>
+                                <td>Útil para funciones vectoriales</td>
                             </tr>
                             <tr>
-                                <td><strong>Uso ideal</strong></td>
-                                <td>Datos, arrays, cálculos rápidos</td>
-                                <td>Álgebra, ecuaciones, derivadas</td>
+                                <td><span class="deprecated">No existía</span></td>
+                                <td><span class="modern">scipy.differentiate.hessian(f, x)</span></td>
+                                <td>Optimización de segundo orden</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">scipy.differentiate</span> <span class="keyword">import</span> <span class="keyword">derivative</span>
+
+<span class="comment"># Función analítica conocida</span>
+<span class="keyword">def</span> <span class="function">f</span>(<span class="keyword">x</span>): <span class="keyword">return</span> <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
+
+<span class="keyword">res</span> = <span class="function">derivative</span>(<span class="keyword">f</span>, <span class="number">2.0</span>)
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) ≈ {res.df:.6f}"</span>)  <span class="comment"># Debe dar 9.0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Camino 2 - Derivada simbólica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Camino 2: derivada simbólica con SymPy</h2>
+                <p class="slide-subtitle">La computadora aplica las reglas como ustedes</p>
+            </div>
+            <div class="slide-content">
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">SymPy es matemática simbólica pura: no aproxima, no comete error de redondeo. Si la derivada existe analíticamente, SymPy la encuentra exacta.</p>
+                <div class="code-box">
+<span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">diff</span>, <span class="keyword">sin</span>, <span class="keyword">cos</span>, <span class="keyword">exp</span>, <span class="keyword">simplify</span>
+
+<span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>, <span class="keyword">real</span>=<span class="keyword">True</span>)
+
+<span class="comment"># Misma función, derivada exacta</span>
+<span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
+<span class="keyword">df</span> = <span class="function">diff</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)
+<span class="function">print</span>(<span class="keyword">df</span>)                <span class="comment"># 3*x**2 - 3</span>
+
+<span class="comment"># Una más interesante</span>
+<span class="keyword">g</span> = <span class="function">sin</span>(<span class="keyword">x</span>) * <span class="function">exp</span>(-<span class="keyword">x</span>**<span class="number">2</span>)
+<span class="keyword">dg</span> = <span class="function">simplify</span>(<span class="function">diff</span>(<span class="keyword">g</span>, <span class="keyword">x</span>))
+<span class="function">print</span>(<span class="keyword">dg</span>)                <span class="comment"># exp(-x²)(cos(x) - 2x·sin(x))</span>
+
+<span class="comment"># Verificar el contraejemplo de Weierstrass: |x| en 0</span>
+<span class="keyword">h</span> = <span class="function">diff</span>(<span class="function">abs</span>(<span class="keyword">x</span>), <span class="keyword">x</span>)
+<span class="function">print</span>(<span class="keyword">h</span>.<span class="function">subs</span>(<span class="keyword">x</span>, <span class="number">0</span>))   <span class="comment"># 0 (SymPy escoge un subgradiente)</span>
+                </div>
+                <div class="key-point" style="margin-top: 15px;">
+                    <h4>Ventaja pedagógica</h4>
+                    <p>SymPy es su "juez imparcial": cuando deriven a mano, verificarán con SymPy. Lo van a usar en cada taller del curso.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Numérico vs simbólico -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Numérico vs simbólico</h2>
+                <p class="slide-subtitle">Cuándo conviene cada uno</p>
+            </div>
+            <div class="slide-content">
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Criterio</th>
+                                <th>Numérico (NumPy/SciPy)</th>
+                                <th>Simbólico (SymPy)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tipo de resultado</strong></td>
+                                <td>Aproximación con error pequeño</td>
+                                <td>Expresión algebraica exacta</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Velocidad</strong></td>
+                                <td>Muy rápida sobre miles de puntos</td>
+                                <td>Lenta para funciones complejas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cuándo usarlo</strong></td>
+                                <td>Datos discretos sin fórmula</td>
+                                <td>Cuando se necesita interpretar la fórmula</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Problema típico</strong></td>
+                                <td>Series financieras, sensores</td>
+                                <td>Verificar derivadas manuales, álgebra</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Limitación</strong></td>
+                                <td>Error de redondeo y truncamiento</td>
+                                <td>"Expression swell" en cadenas largas</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="highlight-box">
-                    <p>SymPy es perfecto para verificar trabajo algebraico manual y derivar fórmulas sin errores.</p>
+                    <p>El truco profesional: usar SymPy para encontrar la derivada analítica, y luego convertirla a una función NumPy con sp.lambdify para evaluarla rápido sobre arrays grandes.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Instalación y configuración -->
+        <!-- Slide 8: Camino 3 - Autodiff -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">Instalación en Google Colab</h2>
-                <p class="slide-subtitle">Setup inicial</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="comment"># Ya viene instalado en Colab, pero para actualizarlo:</span>
-<span class="keyword">!</span>pip install sympy --upgrade
-
-<span class="comment"># Importar librería completa</span>
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="comment"># Configurar visualización bonita (LaTeX)</span>
-<span class="keyword">init_printing</span>(use_latex=<span class="string">'mathjax'</span>)
-
-<span class="comment"># Verificar versión</span>
-<span class="keyword">import</span> sympy
-<span class="keyword">print</span>(<span class="string">f"Versión de SymPy: </span>{sympy.<span class="keyword">__version__</span>}<span class="string">"</span>)
-
-<span class="comment"># Salida esperada: 1.14.0 o superior</span>
-                </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>Nota: En este curso usaremos "from sympy import *" para simplificar, pero en producción es mejor importar solo lo necesario.</p>
-                </div>
-                <div class="content-box" style="margin-top: 20px;">
-                    <h3>¿Por qué init_printing()?</h3>
-                    <p>Esta función hace que las expresiones se muestren con formato matemático bonito (como en LaTeX) en lugar de texto plano. Transforma "x**2 + 3*x" en "x² + 3x".</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Crear símbolos -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Crear símbolos: el primer paso</h2>
-                <p class="slide-subtitle">Variables matemáticas en Python</p>
-            </div>
-            <div class="slide-content">
-                <div class="two-columns">
-                    <div class="code-box">
-<span class="comment"># Método 1: Un símbolo</span>
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-<span class="keyword">print</span>(<span class="keyword">type</span>(x))  
-<span class="comment"># &lt;class 'sympy.core.symbol.Symbol'&gt;</span>
-
-<span class="comment"># Método 2: Varios símbolos</span>
-<span class="keyword">x</span>, <span class="keyword">y</span>, <span class="keyword">z</span> = <span class="keyword">symbols</span>(<span class="string">'x y z'</span>)
-
-<span class="comment"># Método 3: Con restricciones</span>
-<span class="keyword">n</span> = <span class="keyword">Symbol</span>(<span class="string">'n'</span>, 
-           integer=<span class="keyword">True</span>, 
-           positive=<span class="keyword">True</span>)
-
-<span class="keyword">theta</span> = <span class="keyword">Symbol</span>(<span class="string">'theta'</span>, 
-               real=<span class="keyword">True</span>)
-                    </div>
-                    <div class="code-box">
-<span class="comment"># Método 4: Secuencias</span>
-<span class="keyword">x1</span>, <span class="keyword">x2</span>, <span class="keyword">x3</span> = <span class="keyword">symbols</span>(<span class="string">'x1:4'</span>)
-<span class="comment"># Crea x1, x2, x3</span>
-
-<span class="keyword">a</span>, <span class="keyword">b</span>, <span class="keyword">c</span> = <span class="keyword">symbols</span>(<span class="string">'a:d'</span>)
-<span class="comment"># Crea a, b, c</span>
-
-<span class="comment"># Crear 10 coeficientes</span>
-<span class="keyword">coefs</span> = <span class="keyword">symbols</span>(<span class="string">'c0:10'</span>)
-<span class="keyword">print</span>(coefs)
-<span class="comment"># (c0, c1, c2, ..., c9)</span>
-                    </div>
-                </div>
-                <div class="key-point" style="margin-top: 20px;">
-                    <h4>Importante: diferencia entre símbolo y variable de Python</h4>
-                    <p>En "x = symbols('x')", la variable de Python 'x' contiene un símbolo matemático 'x'. El nombre no tiene que coincidir: podrías hacer "variable = symbols('x')", pero sería confuso.</p>
-                </div>
-                <div class="code-box" style="margin-top: 20px;">
-<span class="comment"># Ejemplo de uso con símbolos creados</span>
-<span class="keyword">x</span>, <span class="keyword">y</span> = <span class="keyword">symbols</span>(<span class="string">'x y'</span>)
-
-<span class="comment"># Ahora x e y son símbolos matemáticos</span>
-<span class="keyword">expresion</span> = x**<span class="number">2</span> + <span class="number">3</span>*x + y
-<span class="keyword">print</span>(expresion)
-<span class="comment"># Salida: x² + 3x + y (con formato bonito si usaste init_printing)</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Expandir expresiones -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Expandir expresiones</h2>
-                <p class="slide-subtitle">Productos notables automáticamente</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span>, <span class="keyword">y</span> = <span class="keyword">symbols</span>(<span class="string">'x y'</span>)
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 1. EXPANDIR: (a+b)² → a² + 2ab + b²</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr1</span> = (x + <span class="number">3</span>)**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="string">"Original:"</span>, expr1)       <span class="comment"># (x + 3)²</span>
-<span class="keyword">print</span>(<span class="string">"Expandido:"</span>, <span class="keyword">expand</span>(expr1))  <span class="comment"># x² + 6x + 9</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 2. CUADRADO DE DIFERENCIA</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr2</span> = (x - <span class="number">5</span>)**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="keyword">expand</span>(expr2))  <span class="comment"># x² - 10x + 25</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 3. DIFERENCIA DE CUADRADOS</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr3</span> = (x + y) * (x - y)
-<span class="keyword">print</span>(<span class="keyword">expand</span>(expr3))  <span class="comment"># x² - y²</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 4. CUBO DE SUMA</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr4</span> = (x + <span class="number">2</span>)**<span class="number">3</span>
-<span class="keyword">print</span>(<span class="keyword">expand</span>(expr4))  <span class="comment"># x³ + 6x² + 12x + 8</span>
-                </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>expand() aplica todas las reglas algebraicas para escribir la expresión en su forma más desarrollada.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Factorizar expresiones -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Factorizar expresiones</h2>
-                <p class="slide-subtitle">El proceso inverso de expandir</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 1. DIFERENCIA DE CUADRADOS</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr1</span> = x**<span class="number">2</span> - <span class="number">4</span>
-<span class="keyword">print</span>(<span class="keyword">factor</span>(expr1))  <span class="comment"># (x - 2)(x + 2)</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 2. TRINOMIO CUADRADO PERFECTO</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr2</span> = x**<span class="number">2</span> + <span class="number">6</span>*x + <span class="number">9</span>
-<span class="keyword">print</span>(<span class="keyword">factor</span>(expr2))  <span class="comment"># (x + 3)²</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 3. FACTORIZACIÓN GENERAL</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr3</span> = x**<span class="number">3</span> - x**<span class="number">2</span> + x - <span class="number">1</span>
-<span class="keyword">print</span>(<span class="keyword">factor</span>(expr3))  <span class="comment"># (x - 1)(x² + 1)</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 4. FACTORIZAR COMPLETAMENTE</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr4</span> = x**<span class="number">4</span> - <span class="number">16</span>
-<span class="keyword">print</span>(<span class="keyword">factor</span>(expr4))  
-<span class="comment"># (x - 2)(x + 2)(x² + 4)</span>
-                </div>
-                <div class="two-columns" style="margin-top: 20px;">
-                    <div class="key-point">
-                        <h4>expand() vs factor()</h4>
-                        <p>Son operaciones inversas. expand() desarrolla productos, factor() encuentra factores comunes.</p>
-                    </div>
-                    <div class="code-box">
-<span class="comment"># Verificar que son inversos</span>
-<span class="keyword">original</span> = (x + <span class="number">3</span>)**<span class="number">2</span>
-<span class="keyword">expandida</span> = <span class="keyword">expand</span>(original)
-<span class="keyword">de_vuelta</span> = <span class="keyword">factor</span>(expandida)
-
-<span class="keyword">print</span>(original == de_vuelta)  
-<span class="comment"># True</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Simplificar expresiones -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Simplificar expresiones</h2>
-                <p class="slide-subtitle">Reducir a la forma más simple</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 1. SIMPLIFICAR IDENTIDADES TRIGONOMÉTRICAS</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr1</span> = <span class="keyword">sin</span>(x)**<span class="number">2</span> + <span class="keyword">cos</span>(x)**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="keyword">simplify</span>(expr1))  <span class="comment"># 1</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 2. SIMPLIFICAR FRACCIONES</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr2</span> = (x**<span class="number">2</span> - <span class="number">1</span>) / (x - <span class="number">1</span>)
-<span class="keyword">print</span>(<span class="keyword">simplify</span>(expr2))  <span class="comment"># x + 1</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 3. SIMPLIFICAR EXPONENTES</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">expr3</span> = x**<span class="number">3</span> * x**<span class="number">4</span> / x**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="keyword">simplify</span>(expr3))  <span class="comment"># x⁵</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 4. SIMPLIFICACIÓN ESPECÍFICA</span>
-<span class="comment"># ===================================</span>
-
-<span class="comment"># trigsimp: solo trigonometría</span>
-<span class="keyword">print</span>(<span class="keyword">trigsimp</span>(<span class="keyword">sin</span>(x)**<span class="number">2</span> + <span class="keyword">cos</span>(x)**<span class="number">2</span>))  <span class="comment"># 1</span>
-
-<span class="comment"># radsimp: racionalizar denominadores</span>
-<span class="keyword">expr4</span> = <span class="number">1</span> / (<span class="keyword">sqrt</span>(<span class="number">2</span>) + <span class="keyword">sqrt</span>(<span class="number">3</span>))
-<span class="keyword">print</span>(<span class="keyword">radsimp</span>(expr4))  <span class="comment"># -√2 + √3</span>
-                </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>simplify() intenta varias estrategias y devuelve la expresión más simple. Es "inteligente" pero puede ser lento con expresiones grandes.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 9: Resolver ecuaciones -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Resolver ecuaciones</h2>
-                <p class="slide-subtitle">solve() y solveset()</p>
-            </div>
-            <div class="slide-content">
-                <div class="two-columns">
-                    <div class="code-box">
-<span class="comment"># MÉTODO TRADICIONAL: solve()</span>
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># Ecuación: x² - 4 = 0</span>
-<span class="keyword">sol</span> = <span class="keyword">solve</span>(x**<span class="number">2</span> - <span class="number">4</span>, x)
-<span class="keyword">print</span>(sol)  
-<span class="comment"># [-2, 2]</span>
-
-<span class="comment"># Sistema de ecuaciones</span>
-<span class="keyword">y</span> = <span class="keyword">symbols</span>(<span class="string">'y'</span>)
-<span class="keyword">sistema</span> = <span class="keyword">solve</span>([
-    x + y - <span class="number">5</span>,
-    x - y - <span class="number">1</span>
-], [x, y])
-
-<span class="keyword">print</span>(sistema)  
-<span class="comment"># {x: 3, y: 2}</span>
-                    </div>
-                    <div class="code-box">
-<span class="comment"># MÉTODO MODERNO: solveset()</span>
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># Retorna conjunto</span>
-<span class="keyword">sol</span> = <span class="keyword">solveset</span>(
-    x**<span class="number">2</span> - <span class="number">4</span>, 
-    x, 
-    domain=S.Reals
-)
-<span class="keyword">print</span>(sol)  
-<span class="comment"># FiniteSet(-2, 2)</span>
-
-<span class="comment"># Maneja infinitas mejor</span>
-<span class="keyword">sol2</span> = <span class="keyword">solveset</span>(
-    <span class="keyword">sin</span>(x), 
-    x,
-    domain=S.Reals
-)
-<span class="comment"># ImageSet con ∞ soluciones</span>
-                    </div>
-                </div>
-                <div class="content-box" style="margin-top: 20px;">
-                    <h3>Diferencias clave</h3>
-                    <p><strong>solve():</strong> Retorna lista, puede resolver sistemas (múltiples variables). Usa para sistemas de ecuaciones.</p>
-                    <p style="margin-top: 10px;"><strong>solveset():</strong> Retorna conjunto matemático, una variable solamente, maneja mejor casos con infinitas soluciones. Más moderno y recomendado para ecuaciones simples.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 10: Derivación simbólica -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Derivación simbólica</h2>
-                <p class="slide-subtitle">Calcular derivadas exactas</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 1. DERIVADA SIMPLE</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">f</span> = x**<span class="number">3</span> + <span class="number">2</span>*x**<span class="number">2</span> + <span class="number">5</span>
-<span class="keyword">df</span> = <span class="keyword">diff</span>(f, x)
-<span class="keyword">print</span>(<span class="string">f"f(x) = </span>{f}<span class="string">"</span>)
-<span class="keyword">print</span>(<span class="string">f"f'(x) = </span>{df}<span class="string">"</span>)
-<span class="comment"># f'(x) = 3x² + 4x</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 2. SEGUNDA DERIVADA</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">ddf</span> = <span class="keyword">diff</span>(f, x, <span class="number">2</span>)  <span class="comment"># Derivar 2 veces</span>
-<span class="keyword">print</span>(<span class="string">f"f''(x) = </span>{ddf}<span class="string">"</span>)
-<span class="comment"># f''(x) = 6x + 4</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 3. DERIVADAS PARCIALES</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">x</span>, <span class="keyword">y</span> = <span class="keyword">symbols</span>(<span class="string">'x y'</span>)
-<span class="keyword">g</span> = x**<span class="number">2</span> * y + <span class="number">3</span>*x*y**<span class="number">2</span>
-
-<span class="keyword">dgdx</span> = <span class="keyword">diff</span>(g, x)  <span class="comment"># ∂g/∂x</span>
-<span class="keyword">dgdy</span> = <span class="keyword">diff</span>(g, y)  <span class="comment"># ∂g/∂y</span>
-
-<span class="keyword">print</span>(<span class="string">f"∂g/∂x = </span>{dgdx}<span class="string">"</span>)  <span class="comment"># 2xy + 3y²</span>
-<span class="keyword">print</span>(<span class="string">f"∂g/∂y = </span>{dgdy}<span class="string">"</span>)  <span class="comment"># x² + 6xy</span>
-                </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>diff() calcula derivadas EXACTAS. No hay errores de aproximación numérica.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 11: Aplicación ML - Gradient descent -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">Aplicación: derivar función de pérdida MSE</h2>
-                <p class="slide-subtitle">Gradientes para gradient descent</p>
-            </div>
-            <div class="slide-content">
-                <div class="code-box">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="comment"># Definir símbolos</span>
-<span class="keyword">x</span>, <span class="keyword">y</span>, <span class="keyword">m</span>, <span class="keyword">b</span> = <span class="keyword">symbols</span>(<span class="string">'x y m b'</span>)
-
-<span class="comment"># Modelo de predicción lineal: ŷ = mx + b</span>
-<span class="keyword">y_pred</span> = m * x + b
-
-<span class="comment"># Error cuadrático para UN punto: (y - ŷ)²</span>
-<span class="keyword">error</span> = (y - y_pred)**<span class="number">2</span>
-
-<span class="keyword">print</span>(<span class="string">"Error cuadrático:"</span>)
-<span class="keyword">print</span>(<span class="keyword">expand</span>(error))
-<span class="comment"># Salida: b² + 2bm·x + m²x² - 2by - 2mxy + y²</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># DERIVADAS PARCIALES (GRADIENTES)</span>
-<span class="comment"># ===================================</span>
-
-<span class="comment"># ∂Error/∂m (gradiente respecto a pendiente)</span>
-<span class="keyword">d_error_dm</span> = <span class="keyword">diff</span>(error, m)
-<span class="keyword">print</span>(<span class="string">"
-∂Error/∂m ="</span>)
-<span class="keyword">print</span>(<span class="keyword">simplify</span>(d_error_dm))
-<span class="comment"># 2x(b + mx - y)</span>
-
-<span class="comment"># ∂Error/∂b (gradiente respecto a intercepto)</span>
-<span class="keyword">d_error_db</span> = <span class="keyword">diff</span>(error, b)
-<span class="keyword">print</span>(<span class="string">"
-∂Error/∂b ="</span>)
-<span class="keyword">print</span>(<span class="keyword">simplify</span>(d_error_db))
-<span class="comment"># 2(b + mx - y)</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># CONVERTIR A FUNCIÓN NUMÉRICA</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-
-<span class="comment"># lambdify convierte expresión simbólica → función Python</span>
-<span class="keyword">grad_m_func</span> = <span class="keyword">lambdify</span>([x, y, m, b], d_error_dm, <span class="string">"numpy"</span>)
-<span class="keyword">grad_b_func</span> = <span class="keyword">lambdify</span>([x, y, m, b], d_error_db, <span class="string">"numpy"</span>)
-
-<span class="comment"># Usar con datos reales</span>
-<span class="keyword">X_data</span> = np.<span class="keyword">array</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
-<span class="keyword">y_data</span> = np.<span class="keyword">array</span>([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>])
-<span class="keyword">m_val</span>, <span class="keyword">b_val</span> = <span class="number">1.5</span>, <span class="number">0.5</span>
-
-<span class="keyword">gradientes_m</span> = <span class="keyword">grad_m_func</span>(X_data, y_data, m_val, b_val)
-<span class="keyword">gradientes_b</span> = <span class="keyword">grad_b_func</span>(X_data, y_data, m_val, b_val)
-
-<span class="keyword">print</span>(<span class="string">f"
-Gradiente promedio ∂E/∂m: </span>{np.<span class="keyword">mean</span>(gradientes_m):<span class="string">.3f</span>}<span class="string">"</span>)
-<span class="keyword">print</span>(<span class="string">f"Gradiente promedio ∂E/∂b: </span>{np.<span class="keyword">mean</span>(gradientes_b):<span class="string">.3f</span>}<span class="string">"</span>)
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 12: lambdify: Convertir símbolos a funciones -->
-        <div class="slide">
-            <div class="slide-header">
-                <h2 class="slide-title">lambdify: de símbolos a funciones ejecutables</h2>
-                <p class="slide-subtitle">Puente entre SymPy y NumPy</p>
+                <h2 class="slide-title">Camino 3: diferenciación automática</h2>
+                <p class="slide-subtitle">Ni numérica ni simbólica: algo más inteligente</p>
             </div>
             <div class="slide-content">
                 <div class="content-box">
-                    <h3>¿Qué hace lambdify?</h3>
-                    <p>Convierte expresiones simbólicas de SymPy en funciones de Python que pueden evaluarse con NumPy (rápido, vectorizado).</p>
+                    <h3>La idea</h3>
+                    <p>El autodiff no aproxima ni resuelve simbólicamente. Construye un grafo computacional con cada operación elemental (suma, multiplicación, sin, exp) y aplica la regla de la cadena hacia atrás. Resultado: derivada exacta hasta el último dígito de precisión flotante, con costo similar al de evaluar la función original.</p>
                 </div>
-                <div class="code-box" style="margin-top: 20px;">
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-<span class="keyword">import</span> numpy <span class="keyword">as</span> np
-<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 1. CREAR EXPRESIÓN SIMBÓLICA</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-<span class="keyword">expr</span> = <span class="keyword">sin</span>(x) * <span class="keyword">cos</span>(x)
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 2. CONVERTIR A FUNCIÓN NUMPY</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">f_numpy</span> = <span class="keyword">lambdify</span>(x, expr, <span class="string">"numpy"</span>)
-
-<span class="comment"># Ahora f_numpy es una función Python normal</span>
-<span class="keyword">print</span>(<span class="keyword">type</span>(f_numpy))  <span class="comment"># &lt;class 'function'&gt;</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 3. EVALUAR EN ARRAYS (VECTORIZADO)</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">x_vals</span> = np.<span class="keyword">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*np.pi, <span class="number">1000</span>)
-<span class="keyword">y_vals</span> = <span class="keyword">f_numpy</span>(x_vals)  <span class="comment"># ¡Muy rápido!</span>
-
-<span class="comment"># ===================================</span>
-<span class="comment"># 4. GRAFICAR</span>
-<span class="comment"># ===================================</span>
-
-<span class="keyword">plt</span>.<span class="keyword">figure</span>(figsize=(<span class="number">10</span>, <span class="number">5</span>))
-<span class="keyword">plt</span>.<span class="keyword">plot</span>(x_vals, y_vals, color=<span class="string">'#FF8C00'</span>, linewidth=<span class="number">2</span>)
-<span class="keyword">plt</span>.<span class="keyword">title</span>(<span class="string">'f(x) = sin(x)·cos(x)'</span>, fontsize=<span class="number">14</span>)
-<span class="keyword">plt</span>.<span class="keyword">xlabel</span>(<span class="string">'x'</span>)
-<span class="keyword">plt</span>.<span class="keyword">ylabel</span>(<span class="string">'f(x)'</span>)
-<span class="keyword">plt</span>.<span class="keyword">grid</span>(<span class="keyword">True</span>, alpha=<span class="number">0.3</span>)
-<span class="keyword">plt</span>.<span class="keyword">show</span>()
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="feature-card">
+                        <h4>Modo forward</h4>
+                        <p>Propaga (valor, derivada) hacia adelante. Eficiente cuando hay pocas variables y muchas salidas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Modo reverse</h4>
+                        <p>Construye el grafo y aplica la regla de la cadena hacia atrás. Eficiente cuando hay muchas variables y pocas salidas (caso típico en IA).</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>El estándar de la industria</h4>
+                        <p>PyTorch, JAX, TensorFlow, MLX, Mojo: todos usan autodiff en modo reverse para entrenar modelos.</p>
+                    </div>
                 </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>lambdify es esencial cuando necesitas evaluar expresiones simbólicas millones de veces (como en ML).</p>
+                <div class="quote-box">
+                    "Backpropagation no es más que diferenciación automática en modo reverse aplicada al cálculo de gradientes de una función de pérdida."
+                    <span class="quote-author">Zhang, Lipton, Li y Smola — Dive into Deep Learning (2023)</span>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 13: Ejercicio práctico -->
+        <!-- Slide 9: Demo PyTorch autograd -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">Ejercicio práctico guiado</h2>
-                <p class="slide-subtitle">Verificar productos notables con SymPy</p>
+                <h2 class="slide-title">Demo en vivo: torch.autograd</h2>
+                <p class="slide-subtitle">Calculemos f'(2) para f(x) = x³ - 3x con cuatro líneas</p>
             </div>
             <div class="slide-content">
-                <div class="content-box">
-                    <h3>Desafío</h3>
-                    <p>Abre Google Colab y verifica estos 4 productos notables usando SymPy. ¿Cuál es el resultado expandido de cada uno?</p>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="comment"># 1. Crear el tensor y pedir a PyTorch que rastree gradientes</span>
+<span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">2.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+
+<span class="comment"># 2. Construir la función (PyTorch arma el grafo en silencio)</span>
+<span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
+
+<span class="comment"># 3. Recorrer el grafo hacia atrás aplicando la regla de la cadena</span>
+<span class="keyword">f</span>.<span class="function">backward</span>()
+
+<span class="comment"># 4. Leer el resultado</span>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2) = {f.item()}, f'(2) = {x.grad.item()}"</span>)
+<span class="comment"># Output: f(2) = 2.0, f'(2) = 9.0</span>
+<span class="comment"># Verificación manual: f'(x) = 3x² - 3 → f'(2) = 12 - 3 = 9 ✓</span>
                 </div>
-                <div class="two-columns" style="margin-top: 20px;">
-                    <div class="feature-card">
-                        <h4>1. (x + 7)²</h4>
-                        <p>Resultado esperado: x² + 14x + 49</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>2. (2x - 3)²</h4>
-                        <p>Resultado esperado: 4x² - 12x + 9</p>
-                    </div>
-                </div>
-                <div class="two-columns">
-                    <div class="feature-card">
-                        <h4>3. (x + 5)(x - 5)</h4>
-                        <p>Resultado esperado: x² - 25</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>4. (x + 1)³</h4>
-                        <p>Resultado esperado: x³ + 3x² + 3x + 1</p>
-                    </div>
-                </div>
-                <div class="code-box" style="margin-top: 20px;">
-<span class="comment"># Template de código (copia y modifica)</span>
-<span class="keyword">from</span> sympy <span class="keyword">import</span> *
-
-<span class="keyword">x</span> = <span class="keyword">symbols</span>(<span class="string">'x'</span>)
-
-<span class="comment"># Ejercicio 1</span>
-<span class="keyword">expr1</span> = (x + <span class="number">7</span>)**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="string">"1. (x+7)² ="</span>, <span class="keyword">expand</span>(expr1))
-
-<span class="comment"># Ejercicio 2</span>
-<span class="keyword">expr2</span> = (<span class="number">2</span>*x - <span class="number">3</span>)**<span class="number">2</span>
-<span class="keyword">print</span>(<span class="string">"2. (2x-3)² ="</span>, <span class="keyword">expand</span>(expr2))
-
-<span class="comment"># Ejercicio 3</span>
-<span class="keyword">expr3</span> = (x + <span class="number">5</span>) * (x - <span class="number">5</span>)
-<span class="keyword">print</span>(<span class="string">"3. (x+5)(x-5) ="</span>, <span class="keyword">expand</span>(expr3))
-
-<span class="comment"># Ejercicio 4</span>
-<span class="keyword">expr4</span> = (x + <span class="number">1</span>)**<span class="number">3</span>
-<span class="keyword">print</span>(<span class="string">"4. (x+1)³ ="</span>, <span class="keyword">expand</span>(expr4))
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>Esto mismo, con un grafo de millones de nodos en lugar de tres, es lo que entrenó a ChatGPT, a Gemini y a Claude. Es exactamente la misma técnica, solo que más grande.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 14: Comparativa con otras herramientas -->
+        <!-- Slide 10: Comparación tres caminos -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">SymPy vs otras herramientas</h2>
-                <p class="slide-subtitle">¿Cuándo usar cada una?</p>
+                <h2 class="slide-title">Los tres caminos sobre la misma función</h2>
+                <p class="slide-subtitle">f(x) = x³ - 3x, evaluado en x = 2</p>
             </div>
             <div class="slide-content">
-                <div class="three-columns">
-                    <div class="feature-card">
-                        <h4>SymPy</h4>
-                        <p><strong>Costo:</strong> Gratis</p>
-                        <p><strong>Instalación:</strong> pip install</p>
-                        <p><strong>Python:</strong> Nativo</p>
-                        <p><strong>Velocidad:</strong> Moderada</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>SageMath</h4>
-                        <p><strong>Costo:</strong> Gratis</p>
-                        <p><strong>Instalación:</strong> Compleja</p>
-                        <p><strong>Python:</strong> Buena</p>
-                        <p><strong>Velocidad:</strong> Alta</p>
-                    </div>
-                    <div class="feature-card">
-                        <h4>Mathematica</h4>
-                        <p><strong>Costo:</strong> $$$</p>
-                        <p><strong>Instalación:</strong> Sencilla</p>
-                        <p><strong>Python:</strong> Limitada</p>
-                        <p><strong>Velocidad:</strong> Muy alta</p>
-                    </div>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Método</th>
+                                <th>Código (resumido)</th>
+                                <th>Resultado</th>
+                                <th>Error</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Numérico (NumPy)</strong></td>
+                                <td>np.gradient(f, x)[idx]</td>
+                                <td>8.999964...</td>
+                                <td>~10⁻⁵</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Numérico (SciPy)</strong></td>
+                                <td>scipy.differentiate.derivative(f, 2.0)</td>
+                                <td>9.000000000</td>
+                                <td>~10⁻¹⁰</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Simbólico (SymPy)</strong></td>
+                                <td>diff(x**3 - 3*x, x).subs(x, 2)</td>
+                                <td>9 (exacto)</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Automático (PyTorch)</strong></td>
+                                <td>f.backward(); x.grad</td>
+                                <td>9.0</td>
+                                <td>0 (precisión de máquina)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Manual</strong></td>
+                                <td>f'(x) = 3x² - 3, evaluar en x=2</td>
+                                <td>9</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="two-columns" style="margin-top: 20px;">
-                    <div class="key-point">
-                        <h4>Ventajas de SymPy para este curso</h4>
-                        <p>Instalación trivial en Google Colab, integración perfecta con NumPy, Pandas y Matplotlib, curva de aprendizaje suave.</p>
-                    </div>
-                    <div class="key-point">
-                        <h4>Limitaciones de SymPy</h4>
-                        <p>No tan rápido como Mathematica, limitado para álgebra computacional muy avanzada, no tiene interfaz gráfica nativa.</p>
-                    </div>
-                </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>Para ciencia de datos y machine learning, SymPy es la opción ideal por su integración nativa con el ecosistema Python.</p>
+                <div class="key-point" style="margin-top: 15px;">
+                    <h4>El equilibrio profesional</h4>
+                    <p>En la práctica, los científicos de datos combinan los tres: SymPy para entender y verificar, NumPy/SciPy para evaluar rápido sobre datos discretos, y PyTorch/JAX para entrenar modelos con millones de parámetros.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 15: Recursos adicionales -->
+        <!-- Slide 11: ReLU y subgradientes -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">Recursos para profundizar</h2>
-                <p class="slide-subtitle">Documentación y tutoriales</p>
+                <h2 class="slide-title">¿Y ReLU? La función no derivable en cero</h2>
+                <p class="slide-subtitle">La estrella del deep learning, con un detalle incómodo</p>
+            </div>
+            <div class="slide-content">
+                <div class="formula-box">
+                    ReLU(x) = max(0, x)
+                </div>
+                <p style="font-size: 16px; color: #1d1d1f; line-height: 1.5; margin: 0;">Como el valor absoluto que vimos a mano, ReLU tiene un pico en x = 0. La pendiente por la derecha es 1, por la izquierda es 0: no coinciden, así que la derivada formal no existe. Sin embargo, casi cada red neuronal moderna la usa.</p>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="comment"># ¿Qué hace PyTorch cuando uno deriva ReLU en cero?</span>
+<span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">0.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+<span class="keyword">y</span> = <span class="keyword">torch</span>.<span class="function">relu</span>(<span class="keyword">x</span>)
+<span class="keyword">y</span>.<span class="function">backward</span>()
+<span class="function">print</span>(<span class="keyword">x</span>.<span class="keyword">grad</span>)        <span class="comment"># Output: tensor(0.) — PyTorch escoge 0</span>
+                </div>
+                <div class="key-point">
+                    <h4>La respuesta: subgradientes</h4>
+                    <p>Un subgradiente es cualquier número entre las dos pendientes laterales. Para ReLU en 0, cualquier valor entre 0 y 1 es válido. PyTorch toma 0 por convención; TensorFlow también; JAX toma 0. Funciona porque la probabilidad de caer exactamente en x = 0 sobre datos continuos es cero.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Weierstrass y rigor matemático -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">La función de Weierstrass y por qué importa</h2>
+                <p class="slide-subtitle">El monstruo de 1872 que rompió la intuición geométrica</p>
             </div>
             <div class="slide-content">
                 <div class="two-columns">
                     <div class="content-box">
-                        <h3>Documentación oficial</h3>
+                        <h3>El "monstruo"</h3>
+                        <p>En 1872, Karl Weierstrass construyó:</p>
+                        <div class="formula-box" style="font-size: 18px; margin-top: 10px;">
+                            W(x) = Σ aⁿ cos(bⁿπx)
+                        </div>
+                        <p style="margin-top: 10px;">con 0 &lt; a &lt; 1 y b entero impar tal que ab &gt; 1 + 3π/2. Es continua en todo punto y derivable en ninguno.</p>
+                    </div>
+                    <div class="content-box">
+                        <h3>Reacciones de la época</h3>
+                        <div class="quote-box" style="margin-bottom: 10px;">
+                            "Una lamentable calamidad."
+                            <span class="quote-author">Charles Hermite, 1893</span>
+                        </div>
+                        <div class="quote-box">
+                            "Un atentado contra el sentido común."
+                            <span class="quote-author">Henri Poincaré, 1899</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>¿Por qué importa hoy? Porque las redes neuronales con ReLU producen funciones que se comportan como Weierstrass: continuas casi en todas partes, pero con esquinas en cantidades enormes. La matemática que justifica que PyTorch funcione sobre ellas se llama "diferenciación PAP" (Lee et al., NeurIPS 2020).</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Panorámica de frameworks 2026 -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Panorámica de frameworks en 2026</h2>
+                <p class="slide-subtitle">Quién usa qué para derivar automáticamente</p>
+            </div>
+            <div class="slide-content">
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Framework</th>
+                                <th>Nicho</th>
+                                <th>Función de derivar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>PyTorch 2.6</strong></td>
+                                <td>Industria + investigación (lider)</td>
+                                <td>torch.autograd, torch.func.grad</td>
+                            </tr>
+                            <tr>
+                                <td><strong>JAX 0.5</strong></td>
+                                <td>Investigación a gran escala, ciencia</td>
+                                <td>jax.grad, jax.jacfwd, jax.jacrev</td>
+                            </tr>
+                            <tr>
+                                <td><strong>TensorFlow 2.20</strong></td>
+                                <td>Producción legacy, edge (TFLite)</td>
+                                <td>tf.GradientTape</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Keras 3</strong></td>
+                                <td>Frontend multi-backend</td>
+                                <td>keras.ops (sobre TF/JAX/PyTorch)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Apple MLX 0.31</strong></td>
+                                <td>On-device en Apple Silicon</td>
+                                <td>mlx.grad, transformaciones componibles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mojo 0.26</strong></td>
+                                <td>Lenguaje sistémico (camino a 1.0)</td>
+                                <td>MAX framework, AD vía MLIR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-box" style="margin-top: 15px;">
+                    <p>En este curso usaremos PyTorch porque es el estándar de facto y viene preinstalado en Colab. Lo que aprenden aquí se transfiere directamente a JAX y a MLX con cambios mínimos de sintaxis.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Aplicación 1 - BCCR tipo de cambio -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Aplicación 1: velocidad del colón</h2>
+                <p class="slide-subtitle">Datos reales del BCCR — derivada de una serie financiera</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>El problema</h3>
+                    <p>El BCCR publica el tipo de cambio CRC/USD todos los días. ¿Cómo medir la velocidad de depreciación o apreciación del colón en un instante? Aplicando la derivada numérica a la serie temporal.</p>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="stat-box">
+                        <div class="stat-number">503,85</div>
+                        <div class="stat-label">CRC por USD, promedio 2025</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">453,69</div>
+                        <div class="stat-label">Mínimo de la serie (16 mayo 2026)</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">~10%</div>
+                        <div class="stat-label">Apreciación acumulada vs 2024</div>
+                    </div>
+                </div>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">pandas</span> <span class="keyword">as</span> <span class="keyword">pd</span>
+
+<span class="comment"># Cargar serie diaria del BCCR (CSV ya descargado)</span>
+<span class="keyword">df</span> = <span class="keyword">pd</span>.<span class="function">read_csv</span>(<span class="string">'tipo_cambio_bccr_2025_2026.csv'</span>, <span class="keyword">parse_dates</span>=[<span class="string">'fecha'</span>])
+<span class="keyword">tc</span> = <span class="keyword">df</span>[<span class="string">'venta'</span>].<span class="function">values</span>
+<span class="keyword">t</span>  = <span class="keyword">np</span>.<span class="function">arange</span>(<span class="function">len</span>(<span class="keyword">tc</span>))            <span class="comment"># días desde el inicio</span>
+
+<span class="comment"># Velocidad instantánea (CRC por día)</span>
+<span class="keyword">velocidad</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">tc</span>, <span class="keyword">t</span>)
+
+<span class="comment"># Aceleración (cambio de la velocidad)</span>
+<span class="keyword">aceleracion</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">velocidad</span>, <span class="keyword">t</span>)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Aplicación 2 - Turismo ICT -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Aplicación 2: flujo turístico instantáneo</h2>
+                <p class="slide-subtitle">Datos del ICT — derivada de la curva de llegadas</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>El problema</h3>
+                    <p>El ICT publica las llegadas turísticas mensuales por vía aérea. Si T(t) es la curva de llegadas acumuladas, T'(t) representa el flujo turístico instantáneo. La temporada alta corresponde al máximo local de T'(t).</p>
+                </div>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="stat-box">
+                        <div class="stat-number">2 689 278</div>
+                        <div class="stat-label">Llegadas aéreas en 2025</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">+1%</div>
+                        <div class="stat-label">Crecimiento vs 2024</div>
+                    </div>
+                </div>
+                <div class="code-box">
+<span class="keyword">import</span> <span class="keyword">sympy</span> <span class="keyword">as</span> <span class="keyword">sp</span>
+
+<span class="comment"># Modelo: ajustamos un polinomio a los datos del ICT</span>
+<span class="comment"># T(t) acumulada en miles, t = mes del año</span>
+<span class="keyword">t</span> = <span class="keyword">sp</span>.<span class="function">symbols</span>(<span class="string">'t'</span>, <span class="keyword">positive</span>=<span class="keyword">True</span>)
+<span class="keyword">T</span> = <span class="number">200</span>*<span class="keyword">t</span> + <span class="number">15</span>*<span class="keyword">t</span>**<span class="number">2</span> - <span class="number">0.4</span>*<span class="keyword">t</span>**<span class="number">3</span>
+
+<span class="comment"># Flujo instantáneo (derivada simbólica)</span>
+<span class="keyword">flujo</span> = <span class="keyword">sp</span>.<span class="function">diff</span>(<span class="keyword">T</span>, <span class="keyword">t</span>)
+<span class="function">print</span>(<span class="string">f"Flujo en mes 6 (junio): {flujo.subs(t, 6):.0f} llegadas"</span>)
+
+<span class="comment"># ¿Cuándo es máximo el flujo? Cuando flujo'(t) = 0</span>
+<span class="keyword">max_flujo</span> = <span class="keyword">sp</span>.<span class="function">solve</span>(<span class="keyword">sp</span>.<span class="function">diff</span>(<span class="keyword">flujo</span>, <span class="keyword">t</span>), <span class="keyword">t</span>)
+<span class="function">print</span>(<span class="string">f"Pico de temporada alta: mes {float(max_flujo[0]):.1f}"</span>)
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Aplicación 3 - ICE demanda eléctrica -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Aplicación 3: carga marginal eléctrica</h2>
+                <p class="slide-subtitle">Datos del ICE — la derivada como herramienta de operación</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>El contexto</h3>
+                    <p>El Centro Nacional de Control de Energía del ICE monitorea la demanda eléctrica nacional minuto a minuto. La derivada de la curva de demanda (la "carga marginal") es la variable clave para decidir cuándo encender plantas térmicas de respaldo cuando los picos de consumo exceden la capacidad hidroeléctrica.</p>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="stat-box">
+                        <div class="stat-number">89,4%</div>
+                        <div class="stat-label">Producción renovable en 2024</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">86,8%</div>
+                        <div class="stat-label">Atención a demanda con renovables</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">94,9%</div>
+                        <div class="stat-label">Renovables en 2023 (sin El Niño)</div>
+                    </div>
+                </div>
+                <div class="key-point">
+                    <h4>Por qué la derivada importa aquí</h4>
+                    <p>Una caída brusca en el embalse de Arenal (derivada negativa grande del nivel del agua) anticipa la necesidad de quemar bunker. Detectar ese punto de inflexión antes de que ocurra es exactamente un problema de cálculo: encontrar dónde la segunda derivada cambia de signo.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 17: La cinemática moderna -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">La cinemática moderna: del cohete al gradiente</h2>
+                <p class="slide-subtitle">La misma idea, 350 años después</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Newton, 1687</h3>
+                        <p><strong>Problema:</strong> describir el movimiento de un planeta.</p>
+                        <p><strong>Solución:</strong> tasa de cambio instantánea de la posición.</p>
+                        <div class="formula-box" style="font-size: 18px; margin-top: 12px;">
+                            v(t) = s'(t)<br>
+                            a(t) = s''(t)
+                        </div>
+                    </div>
+                    <div class="content-box">
+                        <h3>OpenAI, 2026</h3>
+                        <p><strong>Problema:</strong> entrenar un modelo de lenguaje.</p>
+                        <p><strong>Solución:</strong> tasa de cambio instantánea del error.</p>
+                        <div class="formula-box" style="font-size: 18px; margin-top: 12px;">
+                            ∇<sub>θ</sub> L(θ) = derivada del loss<br>
+                            θ ← θ - η · ∇<sub>θ</sub> L
+                        </div>
+                    </div>
+                </div>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <p>El gradiente del loss respecto a los parámetros es, literalmente, "qué tan rápido cambia el error si movemos cada parámetro un poquito". Es la cinemática de Newton, aplicada a un espacio de un billón de dimensiones en lugar de tres.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Errores conceptuales comunes -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Errores conceptuales para evitar</h2>
+                <p class="slide-subtitle">Lo que separa a un buen científico de datos del resto</p>
+            </div>
+            <div class="slide-content">
+                <div class="key-point">
+                    <h4>Error 1: tratar dy/dx como un cociente</h4>
+                    <p>Es un símbolo para un límite, no un número dividido por otro número. Mucho menos en el código: en autograd, dx no existe como variable independiente.</p>
+                </div>
+                <div class="key-point">
+                    <h4>Error 2: confundir np.gradient con np.diff</h4>
+                    <p>np.diff(f) calcula diferencias f[i+1] - f[i] sin dividir por h. Solo es la diferencia, no la pendiente. Siempre usen np.gradient(f, x) cuando quieran la derivada.</p>
+                </div>
+                <div class="key-point">
+                    <h4>Error 3: olvidar x.grad.zero_() en bucles de PyTorch</h4>
+                    <p>PyTorch acumula gradientes en cada llamada a backward. Si entrenan en un loop y no reinician, los gradientes se suman entre iteraciones y el entrenamiento explota. Lo veremos a fondo en la semana 6.</p>
+                </div>
+                <div class="key-point">
+                    <h4>Error 4: pedir la derivada de una función no continua</h4>
+                    <p>Antes de derivar, verifiquen continuidad. Si la función tiene saltos, no hay derivada en esos puntos. Esto vale igual para SymPy, PyTorch y a mano.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 19: Recursos para esta semana -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Recursos para profundizar esta semana</h2>
+                <p class="slide-subtitle">Lo que mirar antes de la próxima clase</p>
+            </div>
+            <div class="slide-content">
+                <div class="two-columns">
+                    <div class="content-box">
+                        <h3>Visualizaciones</h3>
                         <ul>
-                            <li><strong>SymPy Tutorial:</strong> docs.sympy.org/latest/tutorials</li>
-                            <li><strong>API Reference:</strong> docs.sympy.org/latest/reference</li>
-                            <li><strong>Examples Gallery:</strong> Ejemplos por categoría</li>
+                            <li><strong>3Blue1Brown — Essence of Calculus</strong>, capítulo 2 "The paradox of the derivative" (15 min)</li>
+                            <li><strong>3Blue1Brown — Essence of Calculus</strong>, capítulo 7 "L'Hôpital y epsilon-delta" (12 min)</li>
+                            <li><strong>Dot CSV</strong> (en español): "¿Qué es el descenso del gradiente?"</li>
+                            <li><strong>StatQuest</strong>: "Gradient Descent, Step-by-Step"</li>
                         </ul>
                     </div>
                     <div class="content-box">
-                        <h3>Tutoriales interactivos</h3>
+                        <h3>Lectura técnica</h3>
                         <ul>
-                            <li><strong>SymPy Live:</strong> live.sympy.org (ejecutar código online)</li>
-                            <li><strong>Real Python:</strong> Tutoriales de SymPy aplicado</li>
-                            <li><strong>DataCamp:</strong> Curso de álgebra computacional</li>
+                            <li><strong>Stewart, capítulos 2.7-2.8</strong>: derivadas y razones de cambio</li>
+                            <li><strong>Dive into Deep Learning</strong>, sección 2.5: diferenciación automática</li>
+                            <li><strong>Documentación de PyTorch</strong>: tutorial "Autograd: Automatic Differentiation"</li>
+                            <li><strong>SciPy 1.15 release notes</strong>: nuevo módulo differentiate</li>
                         </ul>
                     </div>
                 </div>
-                <div class="content-box" style="margin-top: 20px;">
-                    <h3>Libros de referencia</h3>
+                <div class="content-box" style="margin-top: 15px;">
+                    <h3>Para la actividad de hoy en las salas</h3>
+                    <p>Necesitarán Colab abierto, su grupo organizado, y los datos del BCCR descargados (les paso el CSV en el chat del grupo). Tienen 50 minutos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 20: Conexión con la próxima clase -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Próxima clase: reglas de derivación</h2>
+                <p class="slide-subtitle">Adiós a la definición, hola a las reglas</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Lo que viene la próxima semana</h3>
+                    <p>Hasta ahora calculamos derivadas con la definición (a mano) y con software (Python). En la próxima clase aprenderemos las reglas algebraicas que permiten derivar a mano cualquier función sin pasar por el límite cada vez.</p>
+                </div>
+                <div class="three-columns" style="margin-top: 15px;">
+                    <div class="feature-card">
+                        <h4>Reglas básicas</h4>
+                        <p>Potencia, suma, resta, producto, cociente. Son automatismos que ahorran horas de cálculo.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Regla de la cadena</h4>
+                        <p>El corazón de la backpropagation. La regla matemática que hace posible entrenar redes neuronales profundas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Funciones especiales</h4>
+                        <p>Exponenciales, logaritmos, trigonométricas. Aparecen en cada modelo de IA, desde regresión logística hasta transformers.</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>La próxima clase también asigno el Taller 1, que cubre todo lo de derivadas e introduce el descenso de gradiente. Lleguen con el ánimo recargado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 21: Transición a actividad grupal -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2 class="slide-title">Actividad grupal: los tres caminos en acción</h2>
+                <p class="slide-subtitle">50 minutos en salas, en grupo</p>
+            </div>
+            <div class="slide-content">
+                <div class="content-box">
+                    <h3>Lo que van a hacer</h3>
                     <ul>
-                        <li><strong>Instant SymPy Starter</strong> - Johansson, Robert (Packt, 2013). Breve introducción práctica.</li>
-                        <li><strong>SymPy: Symbolic Computing in Python</strong> - Meurer et al. (PeerJ, 2017). Paper académico oficial.</li>
-                        <li><strong>STEWART, James.</strong> Pre-cálculo. Matemática para cálculo (6ª ed.). Cengage, 2012. Base teórica matemática.</li>
+                        <li>Resolver una derivada a mano usando la definición formal</li>
+                        <li>Verificarla con SymPy y con torch.autograd</li>
+                        <li>Analizar un caso real con datos del BCCR (tipo de cambio CRC/USD)</li>
+                        <li>Estudiar el comportamiento de ReLU en x = 0 con PyTorch</li>
+                        <li>Cerrar con una reflexión grupal sobre cuál camino conviene en cada caso</li>
                     </ul>
                 </div>
-                <div class="highlight-box" style="margin-top: 20px;">
-                    <p>La documentación oficial de SymPy es excelente. Empieza por el tutorial interactivo en docs.sympy.org.</p>
+                <div class="two-columns" style="margin-top: 15px;">
+                    <div class="key-point">
+                        <h4>Modalidad</h4>
+                        <p>Trabajan en su grupo estable del curso. Las soluciones manuales se suben como foto o PDF al notebook compartido.</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>Entrega</h4>
+                        <p>El notebook completo se sube al repositorio del grupo en GitHub Classroom antes del lunes 1 de junio a las 7:00 p.m.</p>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <p>Esta actividad no tiene nota directa, pero es la antesala del Taller 1 (que sí cuenta). Cuanto mejor la resuelvan hoy, más fácil será el taller.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 16: Resumen y próxima semana -->
+        <!-- Slide 22: Cierre conceptual -->
         <div class="slide">
             <div class="slide-header">
-                <h2 class="slide-title">Resumen y próximos pasos</h2>
-                <p class="slide-subtitle">Lo que aprendimos hoy</p>
+                <h2 class="slide-title">Lo que se llevan de hoy</h2>
+                <p class="slide-subtitle">Tres ideas para no olvidar</p>
             </div>
             <div class="slide-content">
                 <div class="key-point">
-                    <h4>Algebra simbólica vs numérica</h4>
-                    <p>SymPy manipula expresiones matemáticas EXACTAS, sin errores de redondeo. Perfecto para verificar trabajo manual y derivar fórmulas.</p>
+                    <h4>1. La derivada es una idea, no un cálculo</h4>
+                    <p>El límite del cociente diferencial es la misma idea ya sea que la apliquen a mano, con SymPy, o con torch.autograd. Las herramientas cambian; el concepto, no.</p>
                 </div>
                 <div class="key-point">
-                    <h4>Flujo de trabajo típico</h4>
-                    <p>1. Crear símbolos → 2. Definir expresión → 3. Manipular (expand/factor/simplify) → 4. Resolver o derivar → 5. Convertir a NumPy con lambdify.</p>
+                    <h4>2. Cada herramienta tiene su lugar</h4>
+                    <p>NumPy para datos discretos, SymPy para entender la fórmula, PyTorch para entrenar modelos con millones de parámetros. Un buen científico de datos elige según el problema.</p>
                 </div>
                 <div class="key-point">
-                    <h4>Aplicación en ML</h4>
-                    <p>Usamos SymPy para derivar gradientes analíticamente. Esto nos permite entender MATEMÁTICAMENTE qué hace el gradient descent, no solo implementarlo a ciegas.</p>
-                </div>
-                <div class="content-box" style="margin-top: 20px;">
-                    <h3>Próxima semana: álgebra parte II</h3>
-                    <p>Productos notables avanzados, factorización completa, división de polinomios (división sintética), teorema fundamental del álgebra, ceros de polinomios. Todo con SymPy.</p>
+                    <h4>3. La frontera entre cálculo e IA es porosa</h4>
+                    <p>El descenso de gradiente, la backpropagation, los optimizadores Adam y AdamW son todos cálculo diferencial aplicado. Lo que vieron hoy es el motor matemático del estado del arte en inteligencia artificial.</p>
                 </div>
                 <div class="highlight-box" style="margin-top: 20px;">
-                    <p>Tarea moral: practica expandir y factorizar al menos 10 expresiones diferentes en Google Colab. Dominar SymPy te ahorrará HORAS en el futuro.</p>
+                    <p style="text-align: center; font-size: 20px;">Nos vemos a las salas. Pueden empezar la actividad cuando los grupos estén formados en cada sala reducida.</p>
                 </div>
             </div>
         </div>
+
+        <!-- Slide 23: Última -->
+        <div class="slide cover-slide">
+            <h1 class="cover-title" style="font-size: 56px;">Hora de la actividad</h1>
+            <p class="cover-subtitle">50 minutos en salas, en grupo</p>
+            <div class="cover-info">
+                <p>El documento de la actividad está en el repositorio del curso.<br>
+                Lo abren en su grupo y empiezan por la Parte 1.<br><br>
+                Profesor disponible en la sala principal.</p>
+            </div>
+        </div>
+
     </div>
 
     <div class="navigation">
@@ -1148,7 +1295,7 @@ Gradiente promedio ∂E/∂m: </span>{np.<span class="keyword">mean</span>(gradi
 
         function showSlide(n) {
             slides.forEach(slide => slide.classList.remove('active'));
-            
+
             if (n >= totalSlides) {
                 currentSlide = totalSlides - 1;
             } else if (n < 0) {
@@ -1156,10 +1303,10 @@ Gradiente promedio ∂E/∂m: </span>{np.<span class="keyword">mean</span>(gradi
             } else {
                 currentSlide = n;
             }
-            
+
             slides[currentSlide].classList.add('active');
             document.getElementById('currentSlide').textContent = currentSlide + 1;
-            
+
             document.getElementById('prevBtn').disabled = currentSlide === 0;
             document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
         }
