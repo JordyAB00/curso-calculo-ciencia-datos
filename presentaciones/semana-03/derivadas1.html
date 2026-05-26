@@ -13,131 +13,110 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: h
     width: 100%; height: 100%; position: absolute; top: 0; left: 0;
     opacity: 0; transition: opacity 0.6s ease-in-out;
     display: flex; flex-direction: column;
-    padding: 50px 80px 140px 80px; background: #f5f5f7;
+    padding: 35px 70px 110px 70px; background: #f5f5f7;
 }
 .slide.active { opacity: 1; z-index: 1; }
-.slide-header { margin-bottom: 30px; }
-.slide-title { font-size: 38px; font-weight: 700; color: #2d2d2d; margin-bottom: 10px; }
-.slide-subtitle { font-size: 18px; color: #6e6e73; font-weight: 300; }
+.slide-header { margin-bottom: 22px; }
+.slide-title { font-size: 36px; font-weight: 700; color: #2d2d2d; margin-bottom: 8px; }
+.slide-subtitle { font-size: 17px; color: #6e6e73; font-weight: 300; }
 .slide-content {
     flex: 1; display: flex; flex-direction: column; justify-content: flex-start;
-    gap: 16px; overflow-y: auto; max-height: calc(100vh - 260px);
+    gap: 14px; overflow-y: auto; max-height: calc(100vh - 210px);
 }
 .content-box {
-    background: #ffffff; border-radius: 16px; padding: 18px;
+    background: #ffffff; border-radius: 14px; padding: 16px;
     border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-.content-box h3 { font-size: 22px; color: #2d2d2d; margin-bottom: 10px; }
+.content-box h3 { font-size: 20px; color: #2d2d2d; margin-bottom: 8px; }
 .content-box p { font-size: 15px; color: #1d1d1f; line-height: 1.5; }
 .content-box ul { list-style: none; padding-left: 0; }
 .content-box li {
-    font-size: 15px; color: #1d1d1f; line-height: 1.5;
-    padding-left: 22px; position: relative; margin-bottom: 6px;
+    font-size: 14px; color: #1d1d1f; line-height: 1.5;
+    padding-left: 20px; position: relative; margin-bottom: 5px;
 }
-.content-box li::before { content: "▸"; position: absolute; left: 0; color: #FF8C00; font-size: 18px; }
-.two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-.three-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.four-columns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-.code-and-viz { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch; }
-.code-and-viz-tall { display: grid; grid-template-rows: auto 1fr; gap: 14px; }
+.content-box li::before { content: "▸"; position: absolute; left: 0; color: #FF8C00; font-size: 17px; }
+.two-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.four-columns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.code-and-viz { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
 .highlight-box {
     background: linear-gradient(135deg, #fff5e6, #ffffff);
-    border-left: 4px solid #FF8C00; padding: 14px;
+    border-left: 4px solid #FF8C00; padding: 12px 14px;
     border-radius: 10px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
-.highlight-box p { font-size: 16px; color: #2d2d2d; font-style: italic; font-weight: 500; }
+.highlight-box p { font-size: 15px; color: #2d2d2d; font-style: italic; font-weight: 500; }
 .stat-box {
-    background: #ffffff; border-radius: 14px; padding: 14px;
+    background: #ffffff; border-radius: 12px; padding: 12px;
     text-align: center; border: 2px solid #e5e5e7;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .stat-number {
-    font-size: 32px; font-weight: 700;
+    font-size: 28px; font-weight: 700;
     background: linear-gradient(90deg, #2d2d2d, #FF8C00);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 6px;
+    background-clip: text; margin-bottom: 4px;
 }
-.stat-label { font-size: 13px; color: #6e6e73; }
+.stat-label { font-size: 12px; color: #6e6e73; }
 .key-point {
     background: #ffffff; border-left: 4px solid #FF8C00;
-    padding: 14px; border-radius: 8px; margin: 6px 0;
+    padding: 12px 14px; border-radius: 8px; margin: 4px 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     border: 1px solid #e5e5e7; border-left: 4px solid #FF8C00;
 }
-.key-point h4 { color: #2d2d2d; font-size: 17px; margin-bottom: 6px; }
+.key-point h4 { color: #2d2d2d; font-size: 16px; margin-bottom: 4px; }
 .key-point p { color: #1d1d1f; font-size: 14px; line-height: 1.4; }
 .comparison-table {
-    background: #ffffff; border-radius: 14px; overflow: hidden;
+    background: #ffffff; border-radius: 12px; overflow: hidden;
     border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .comparison-table table { width: 100%; border-collapse: collapse; }
 .comparison-table th {
     background: linear-gradient(90deg, #2d2d2d, #FF8C00);
-    color: #ffffff; padding: 11px; font-size: 15px; text-align: left;
+    color: #ffffff; padding: 9px 11px; font-size: 14px; text-align: left;
 }
 .comparison-table td {
-    padding: 10px 11px; font-size: 13px; color: #1d1d1f;
+    padding: 8px 11px; font-size: 13px; color: #1d1d1f;
     border-bottom: 1px solid #f5f5f7;
 }
 .code-box {
-    background: #1e1e1e; border-radius: 10px; padding: 14px;
+    background: #1e1e1e; border-radius: 10px; padding: 14px 16px;
     font-family: 'Consolas', 'Courier New', monospace; color: #d4d4d4;
     font-size: 13px; line-height: 1.55; white-space: pre-wrap;
     word-wrap: break-word; text-align: left;
     overflow: visible; height: auto; min-height: fit-content;
 }
+.code-box.code-full { font-size: 13.5px; line-height: 1.6; }
 .code-box .comment { color: #6a9955; }
 .code-box .keyword { color: #569cd6; }
 .code-box .string { color: #ce9178; }
 .code-box .number { color: #b5cea8; }
 .code-box .function { color: #dcdcaa; }
 
-/* TERMINAL estilizado para mostrar outputs */
-.terminal {
-    background: #0d1117; border-radius: 10px; overflow: hidden;
-    border: 1px solid #30363d; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    display: flex; flex-direction: column;
-}
-.terminal-header {
-    background: #161b22; padding: 8px 14px; display: flex;
-    align-items: center; gap: 8px; border-bottom: 1px solid #30363d;
-}
-.terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
-.terminal-dot.red { background: #ff5f56; }
-.terminal-dot.yellow { background: #ffbd2e; }
-.terminal-dot.green { background: #27c93f; }
-.terminal-title {
-    color: #8b949e; font-size: 12px; margin-left: 8px;
-    font-family: 'Consolas', monospace;
-}
-.terminal-body {
-    padding: 14px 16px; font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 13px; line-height: 1.6; color: #c9d1d9;
-    white-space: pre-wrap; flex: 1;
-}
-.terminal-body .prompt { color: #FF8C00; font-weight: 600; }
-.terminal-body .output { color: #c9d1d9; }
-.terminal-body .highlight { color: #79c0ff; font-weight: 600; }
-.terminal-body .success { color: #56d364; font-weight: 600; }
-.terminal-body .comment-out { color: #6e7681; }
-
-/* Contenedor de gráficas SVG */
 .viz-box {
-    background: #ffffff; border-radius: 12px; padding: 12px;
-    border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    background: #ffffff; border-radius: 12px; padding: 10px;
+    border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
 }
 .viz-box svg { max-width: 100%; height: auto; max-height: 100%; }
 
+.colab-tip {
+    background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+    border-left: 3px solid #2d8a2d; padding: 8px 14px;
+    border-radius: 8px; font-size: 13px; color: #2d2d2d;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.colab-tip strong { color: #2d8a2d; }
+
 .navigation {
-    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 20px; z-index: 1000;
+    position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 18px; z-index: 1000;
 }
 .nav-button {
     background: linear-gradient(135deg, #2d2d2d, #FF8C00); border: none;
-    color: white; padding: 13px 28px; border-radius: 50px;
-    cursor: pointer; font-size: 15px; font-weight: 600;
+    color: white; padding: 11px 24px; border-radius: 50px;
+    cursor: pointer; font-size: 14px; font-weight: 600;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 15px rgba(255, 140, 0, 0.3);
 }
@@ -146,24 +125,24 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: h
 }
 .nav-button:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.logo-area { position: fixed; top: 15px; left: 20px; z-index: 1000; }
-.logo-image { max-width: 110px; height: auto; }
+.logo-area { position: fixed; top: 12px; left: 20px; z-index: 1000; }
+.logo-image { max-width: 100px; height: auto; }
 
 .slide-number {
-    position: fixed; top: 20px; right: 30px; color: #6e6e73;
-    font-size: 15px; z-index: 1000; font-weight: 500;
+    position: fixed; top: 18px; right: 28px; color: #6e6e73;
+    font-size: 14px; z-index: 1000; font-weight: 500;
 }
 
 .cover-slide {
     justify-content: center; align-items: center; text-align: center;
     background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #ffffff 100%);
-    padding: 60px 80px 140px 80px;
+    padding: 60px 80px 120px 80px;
 }
 .cover-title {
-    font-size: 60px; font-weight: 800;
+    font-size: 56px; font-weight: 800;
     background: linear-gradient(90deg, #2d2d2d, #FF8C00, #2d2d2d);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 18px;
+    background-clip: text; margin-bottom: 16px;
     animation: gradient 3s ease infinite; background-size: 200% 200%;
 }
 @keyframes gradient {
@@ -171,47 +150,47 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: h
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
-.cover-subtitle { font-size: 28px; color: #6e6e73; margin-bottom: 25px; font-weight: 300; }
-.cover-info { font-size: 17px; color: #1d1d1f; margin-top: 25px; line-height: 1.6; }
+.cover-subtitle { font-size: 26px; color: #6e6e73; margin-bottom: 22px; font-weight: 300; }
+.cover-info { font-size: 16px; color: #1d1d1f; margin-top: 22px; line-height: 1.6; }
 
 .feature-card {
-    background: #ffffff; border-radius: 14px; padding: 16px;
+    background: #ffffff; border-radius: 12px; padding: 14px;
     border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease;
 }
 .feature-card:hover { transform: translateY(-3px); border-color: #FF8C00; }
-.feature-card h4 { font-size: 17px; color: #2d2d2d; margin-bottom: 6px; }
+.feature-card h4 { font-size: 16px; color: #2d2d2d; margin-bottom: 5px; }
 .feature-card p { font-size: 13px; color: #1d1d1f; line-height: 1.4; }
 .app-card {
     background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
-    border-radius: 14px; padding: 16px;
+    border-radius: 12px; padding: 14px;
     border: 1px solid #e5e5e7; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .app-card .app-label {
     font-size: 11px; color: #FF8C00; font-weight: 700;
-    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 5px;
 }
-.app-card h4 { font-size: 17px; color: #2d2d2d; margin-bottom: 6px; font-weight: 700; }
+.app-card h4 { font-size: 16px; color: #2d2d2d; margin-bottom: 5px; font-weight: 700; }
 .app-card p { font-size: 13px; color: #1d1d1f; line-height: 1.4; }
 
 .deprecated { color: #ce4040; text-decoration: line-through; }
 .modern { color: #2d8a2d; font-weight: 600; }
 .formula-box {
     background: #ffffff; border: 2px dashed #FF8C00;
-    border-radius: 12px; padding: 18px; text-align: center;
+    border-radius: 12px; padding: 14px; text-align: center;
     font-family: 'Cambria Math', 'Times New Roman', serif;
-    font-size: 20px; color: #2d2d2d;
+    font-size: 18px; color: #2d2d2d;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .quote-box {
     background: #ffffff; border-left: 4px solid #2d2d2d;
-    padding: 14px 18px; border-radius: 8px;
+    padding: 12px 16px; border-radius: 8px;
     font-style: italic; color: #2d2d2d; font-size: 14px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .quote-box .quote-author {
     display: block; font-style: normal; font-weight: 600;
-    color: #6e6e73; font-size: 12px; margin-top: 6px;
+    color: #6e6e73; font-size: 12px; margin-top: 5px;
 }
 
     </style>
@@ -293,8 +272,8 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: h
                 <p>Construye un grafo de operaciones y aplica la regla de la cadena. Es el corazón del deep learning.</p>
             </div>
         </div>
-        <div class="highlight-box">
-            <p>Hoy van a ver los tres caminos sobre la misma función, lado a lado.</p>
+        <div class="colab-tip">
+            <strong>En esta sección:</strong> cada código de las próximas slides está listo para copiar y ejecutar en Colab. Verán los outputs en vivo.
         </div>
     </div>
 </div>
@@ -317,9 +296,9 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: h
 <span class="keyword">dfdx</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)
 
 <span class="comment"># Visualizar lado a lado</span>
-<span class="keyword">fig</span>, <span class="keyword">ax</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(<span class="number">1</span>, <span class="number">2</span>)
-<span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">f</span>)
-<span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">dfdx</span>)
+<span class="keyword">fig</span>, <span class="keyword">ax</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="keyword">figsize</span>=(<span class="number">11</span>, <span class="number">4</span>))
+<span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">f</span>);  <span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">set_title</span>(<span class="string">"f(x) = x³ - 3x"</span>)
+<span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">plot</span>(<span class="keyword">x</span>, <span class="keyword">dfdx</span>); <span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">set_title</span>(<span class="string">"f'(x) ≈ 3x² - 3"</span>)
 <span class="keyword">plt</span>.<span class="function">show</span>()</div>
             <div class="viz-box"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.39952pt" height="238.79952pt" viewBox="0 0 656.39952 238.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
@@ -1834,40 +1813,20 @@ z
         <p class="slide-subtitle">SciPy 1.15 (enero 2025) jubiló el viejo scipy.misc.derivative</p>
     </div>
     <div class="slide-content">
-        <p style="font-size: 15px; color: #1d1d1f;">Hasta hace poco, la función de SciPy para derivar numéricamente estaba en scipy.misc.derivative, pero fue eliminada en SciPy 1.12 y reemplazada por un módulo nuevo y vectorizado con detección de error automática.</p>
-        <div class="code-and-viz">
-            <div class="code-box"><span class="keyword">from</span> <span class="keyword">scipy.differentiate</span> <span class="keyword">import</span> <span class="keyword">derivative</span>
+        <p style="font-size: 14px; color: #1d1d1f;">Hasta hace poco, la función de SciPy para derivar numéricamente estaba en scipy.misc.derivative, pero fue eliminada en SciPy 1.12 y reemplazada por un módulo nuevo y vectorizado con detección de error automática.</p>
+        <div class="code-box code-full"><span class="keyword">from</span> <span class="keyword">scipy.differentiate</span> <span class="keyword">import</span> <span class="keyword">derivative</span>
 
 <span class="comment"># Función analítica conocida</span>
-<span class="keyword">def</span> <span class="function">f</span>(<span class="keyword">x</span>):
-    <span class="keyword">return</span> <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
+<span class="keyword">def</span> <span class="function">f</span>(<span class="keyword">x</span>): <span class="keyword">return</span> <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
 
-<span class="comment"># Derivada en varios puntos</span>
+<span class="comment"># Derivada en x = 2 con detección de error automática</span>
 <span class="keyword">res</span> = <span class="function">derivative</span>(<span class="keyword">f</span>, <span class="number">2.0</span>)
 <span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) = {res.df:.10f}"</span>)
 <span class="function">print</span>(<span class="keyword">f</span><span class="string">"error estimado: {res.error:.2e}"</span>)
 <span class="function">print</span>(<span class="keyword">f</span><span class="string">"iteraciones:    {res.nit}"</span>)
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"éxito:          {res.success}"</span>)</div>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                    <span class="terminal-title">python — scipy.differentiate</span>
-                </div>
-                <div class="terminal-body"><span class="prompt">>>> </span><span class="comment-out">res = derivative(f, 2.0)</span>
-<span class="prompt">>>> </span><span class="comment-out">print(res)</span>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"éxito:          {res.success}"</span>)
 
-<span class="output">f'(2) = </span><span class="highlight">9.0000000000</span>
-<span class="output">error estimado: </span><span class="highlight">2.84e-11</span>
-<span class="output">iteraciones:    </span><span class="highlight">2</span>
-<span class="output">éxito:          </span><span class="success">True</span>
-
-<span class="comment-out"># Verificación manual:</span>
-<span class="comment-out"># f'(x) = 3x² - 3</span>
-<span class="comment-out"># f'(2) = 3(4) - 3 = 9 ✓</span></div>
-            </div>
-        </div>
+<span class="comment"># Verificación manual: f'(x) = 3x² - 3, en x=2 → 3(4) - 3 = 9</span></div>
         <div class="comparison-table">
             <table>
                 <thead><tr><th>Antiguo (no usar)</th><th>Moderno (usar siempre)</th><th>Por qué</th></tr></thead>
@@ -1887,46 +1846,26 @@ z
         <p class="slide-subtitle">La computadora aplica las reglas como ustedes — exacto, sin errores de redondeo</p>
     </div>
     <div class="slide-content">
-        <div class="code-and-viz">
-            <div class="code-box"><span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">diff</span>, <span class="keyword">sin</span>, <span class="keyword">exp</span>, <span class="keyword">simplify</span>
+        <div class="code-box code-full"><span class="keyword">from</span> <span class="keyword">sympy</span> <span class="keyword">import</span> <span class="keyword">symbols</span>, <span class="keyword">diff</span>, <span class="keyword">sin</span>, <span class="keyword">exp</span>, <span class="keyword">simplify</span>
 
 <span class="keyword">x</span> = <span class="function">symbols</span>(<span class="string">'x'</span>, <span class="keyword">real</span>=<span class="keyword">True</span>)
 
-<span class="comment"># Misma función, derivada exacta</span>
+<span class="comment"># Misma función polinómica, derivada exacta</span>
 <span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
 <span class="keyword">df</span> = <span class="function">diff</span>(<span class="keyword">f</span>, <span class="keyword">x</span>)
-<span class="function">print</span>(<span class="string">"df/dx ="</span>, <span class="keyword">df</span>)
+<span class="function">print</span>(<span class="string">"df/dx ="</span>, <span class="keyword">df</span>)                  <span class="comment"># 3*x**2 - 3</span>
+<span class="function">print</span>(<span class="string">"df/dx en x=2 ="</span>, <span class="keyword">df</span>.<span class="function">subs</span>(<span class="keyword">x</span>, <span class="number">2</span>))   <span class="comment"># 9 (entero, exacto)</span>
 
-<span class="comment"># Una más interesante</span>
+<span class="comment"># Una función más interesante: regla del producto + cadena automática</span>
 <span class="keyword">g</span> = <span class="function">sin</span>(<span class="keyword">x</span>) * <span class="function">exp</span>(-<span class="keyword">x</span>**<span class="number">2</span>)
 <span class="keyword">dg</span> = <span class="function">simplify</span>(<span class="function">diff</span>(<span class="keyword">g</span>, <span class="keyword">x</span>))
-<span class="function">print</span>(<span class="string">"dg/dx ="</span>, <span class="keyword">dg</span>)
-
-<span class="comment"># Evaluar en un punto</span>
-<span class="function">print</span>(<span class="string">"df/dx en x=2 ="</span>, <span class="keyword">df</span>.<span class="function">subs</span>(<span class="keyword">x</span>, <span class="number">2</span>))</div>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                    <span class="terminal-title">python — sympy</span>
-                </div>
-                <div class="terminal-body"><span class="prompt">>>> </span><span class="comment-out">print("df/dx =", df)</span>
-<span class="output">df/dx = </span><span class="highlight">3*x**2 - 3</span>
-
-<span class="prompt">>>> </span><span class="comment-out">print("dg/dx =", dg)</span>
-<span class="output">dg/dx = </span><span class="highlight">(-2*x*sin(x) + cos(x))*exp(-x**2)</span>
-
-<span class="prompt">>>> </span><span class="comment-out">print("df/dx en x=2 =", df.subs(x, 2))</span>
-<span class="output">df/dx en x=2 = </span><span class="highlight">9</span>
-
-<span class="comment-out"># Resultado exacto: no es 9.0000000001,
-# es 9. Entero. Matemática pura.</span></div>
-            </div>
-        </div>
+<span class="function">print</span>(<span class="string">"dg/dx ="</span>, <span class="keyword">dg</span>)                  <span class="comment"># (-2x·sin(x) + cos(x))·exp(-x²)</span></div>
         <div class="key-point">
             <h4>Ventaja pedagógica</h4>
             <p>SymPy es su "juez imparcial": cuando deriven a mano, lo verificarán aquí. Cuando duden de una integral en la semana 9, lo confirmarán aquí. Lo van a usar en cada taller del curso.</p>
+        </div>
+        <div class="colab-tip">
+            <strong>Al ejecutar en Colab:</strong> las expresiones simbólicas se muestran en formato matemático bonito si usan <code>display()</code> en lugar de <code>print()</code>.
         </div>
     </div>
 </div>
@@ -1992,45 +1931,26 @@ z
         <p class="slide-subtitle">Calculemos f'(2) para f(x) = x³ - 3x con cuatro líneas</p>
     </div>
     <div class="slide-content">
-        <div class="code-and-viz">
-            <div class="code-box"><span class="keyword">import</span> <span class="keyword">torch</span>
+        <div class="code-box code-full"><span class="keyword">import</span> <span class="keyword">torch</span>
 
-<span class="comment"># 1. Crear el tensor con seguimiento de gradiente</span>
+<span class="comment"># 1. Crear el tensor con seguimiento de gradiente activado</span>
 <span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">2.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
 
-<span class="comment"># 2. Construir la función (grafo en silencio)</span>
+<span class="comment"># 2. Construir la función (PyTorch arma el grafo en silencio)</span>
 <span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>
 
-<span class="comment"># 3. Recorrer el grafo hacia atrás</span>
+<span class="comment"># 3. Recorrer el grafo hacia atrás aplicando la regla de la cadena</span>
 <span class="keyword">f</span>.<span class="function">backward</span>()
 
 <span class="comment"># 4. Leer el resultado</span>
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2)  = {f.item()}"</span>)
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) = {x.grad.item()}"</span>)</div>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                    <span class="terminal-title">python — torch.autograd</span>
-                </div>
-                <div class="terminal-body"><span class="prompt">>>> </span><span class="comment-out">x = torch.tensor(2.0,</span>
-<span class="comment-out">                requires_grad=True)</span>
-<span class="prompt">>>> </span><span class="comment-out">f = x**3 - 3*x</span>
-<span class="prompt">>>> </span><span class="comment-out">f.backward()</span>
-
-<span class="prompt">>>> </span><span class="comment-out">print(f"f(2)  = {f.item()}")</span>
-<span class="output">f(2)  = </span><span class="highlight">2.0</span>
-
-<span class="prompt">>>> </span><span class="comment-out">print(f"f'(2) = {x.grad.item()}")</span>
-<span class="output">f'(2) = </span><span class="highlight">9.0</span>
-
-<span class="success">✓ Coincide con el cálculo manual y</span>
-<span class="success">  con SymPy: 3(2²) - 3 = 9</span></div>
-            </div>
-        </div>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f(2)  = {f.item()}"</span>)            <span class="comment"># 2.0</span>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"f'(2) = {x.grad.item()}"</span>)          <span class="comment"># 9.0</span>
+<span class="function">print</span>(<span class="string">"Verificación: 3(2²) - 3 = 9 ✓"</span>)</div>
         <div class="highlight-box">
             <p>Esto mismo, con un grafo de millones de nodos en lugar de tres, es lo que entrena a ChatGPT, a Gemini y a Claude. Es exactamente la misma técnica, solo que más grande.</p>
+        </div>
+        <div class="colab-tip">
+            <strong>Ejecuten ahora:</strong> copien esto en una celda de Colab. Los <code>print</code> mostrarán f(2) = 2.0 y f'(2) = 9.0 en la salida.
         </div>
     </div>
 </div>
@@ -2038,35 +1958,33 @@ z
 <div class="slide">
     <div class="slide-header">
         <h2 class="slide-title">Los tres caminos sobre el mismo punto</h2>
-        <p class="slide-subtitle">f(x) = x³ - 3x, evaluado en x = 2</p>
+        <p class="slide-subtitle">f(x) = x³ - 3x evaluado en x = 2 — código que pueden correr en Colab</p>
     </div>
     <div class="slide-content">
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-dot red"></div>
-                <div class="terminal-dot yellow"></div>
-                <div class="terminal-dot green"></div>
-                <span class="terminal-title">python — comparación de los tres caminos</span>
-            </div>
-            <div class="terminal-body"><span class="prompt">>>> </span><span class="comment-out"># Camino 1: NumPy (numérico, np.gradient sobre 500 puntos)</span>
-<span class="prompt">>>> </span><span class="comment-out">print(f"NumPy:    f'(2) ≈ {dfdx[idx_2]:.10f}")</span>
-<span class="output">NumPy:    f'(2) ≈ </span><span class="highlight">8.9999638593</span>     <span class="comment-out"># error ~ 10⁻⁵</span>
+        <div class="code-box code-full"><span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">sympy</span> <span class="keyword">as</span> <span class="keyword">sp</span>
+<span class="keyword">import</span> <span class="keyword">torch</span>
+<span class="keyword">from</span> <span class="keyword">scipy.differentiate</span> <span class="keyword">import</span> <span class="keyword">derivative</span>
 
-<span class="prompt">>>> </span><span class="comment-out"># Camino 1b: SciPy (numérico de alta precisión)</span>
-<span class="prompt">>>> </span><span class="comment-out">print(f"SciPy:    f'(2) = {res.df:.10f}")</span>
-<span class="output">SciPy:    f'(2) = </span><span class="highlight">9.0000000000</span>     <span class="comment-out"># error ~ 10⁻¹¹</span>
+<span class="comment"># Camino 1: NumPy (numérico sobre 500 puntos)</span>
+<span class="keyword">xs</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">500</span>); <span class="keyword">f_arr</span> = <span class="keyword">xs</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">xs</span>
+<span class="keyword">dfdx_arr</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">f_arr</span>, <span class="keyword">xs</span>); <span class="keyword">idx</span> = <span class="keyword">np</span>.<span class="function">argmin</span>(<span class="keyword">np</span>.<span class="function">abs</span>(<span class="keyword">xs</span> - <span class="number">2.0</span>))
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"NumPy:    f'(2) ≈ {dfdx_arr[idx]:.10f}     # error ~ 10⁻⁵"</span>)
 
-<span class="prompt">>>> </span><span class="comment-out"># Camino 2: SymPy (simbólico)</span>
-<span class="prompt">>>> </span><span class="comment-out">print(f"SymPy:    f'(2) = {df.subs(x, 2)}")</span>
-<span class="output">SymPy:    f'(2) = </span><span class="highlight">9</span>                <span class="comment-out"># exacto, entero</span>
+<span class="comment"># Camino 1b: SciPy (numérico de alta precisión adaptativa)</span>
+<span class="keyword">res</span> = <span class="function">derivative</span>(<span class="keyword">lambda</span> <span class="keyword">x</span>: <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>, <span class="number">2.0</span>)
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"SciPy:    f'(2) = {res.df:.10f}     # error ~ 10⁻¹¹"</span>)
 
-<span class="prompt">>>> </span><span class="comment-out"># Camino 3: PyTorch (automático)</span>
-<span class="prompt">>>> </span><span class="comment-out">print(f"PyTorch:  f'(2) = {x_t.grad.item()}")</span>
-<span class="output">PyTorch:  f'(2) = </span><span class="highlight">9.0</span>              <span class="comment-out"># precisión de máquina</span>
+<span class="comment"># Camino 2: SymPy (simbólico, exacto)</span>
+<span class="keyword">x_sym</span> = <span class="keyword">sp</span>.<span class="function">symbols</span>(<span class="string">'x'</span>); <span class="keyword">df_sym</span> = <span class="keyword">sp</span>.<span class="function">diff</span>(<span class="keyword">x_sym</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x_sym</span>, <span class="keyword">x_sym</span>)
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"SymPy:    f'(2) = {df_sym.subs(x_sym, 2)}              # exacto, entero"</span>)
 
-<span class="prompt">>>> </span><span class="comment-out"># Manual: f'(x) = 3x² - 3, en x=2 → 12 - 3 = 9</span>
-<span class="success">✓ Los cuatro métodos coinciden.</span></div>
-        </div>
+<span class="comment"># Camino 3: PyTorch (diferenciación automática)</span>
+<span class="keyword">x_t</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">2.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>); (<span class="keyword">x_t</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x_t</span>).<span class="function">backward</span>()
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"PyTorch:  f'(2) = {x_t.grad.item()}            # precisión de máquina"</span>)
+
+<span class="comment"># Manual: f'(x) = 3x² - 3, en x=2: 12 - 3 = 9</span>
+<span class="function">print</span>(<span class="string">"Manual:   f'(2) = 9               # a mano, también 9"</span>)</div>
         <div class="key-point">
             <h4>El equilibrio profesional</h4>
             <p>En la práctica, los científicos de datos combinan los tres: SymPy para entender y verificar, NumPy/SciPy para evaluar rápido sobre datos discretos, y PyTorch/JAX para entrenar modelos con millones de parámetros.</p>
@@ -2081,6 +1999,21 @@ z
     </div>
     <div class="slide-content">
         <div class="code-and-viz">
+            <div class="code-box"><span class="keyword">import</span> <span class="keyword">torch</span>
+
+<span class="comment"># ¿Qué hace PyTorch al derivar ReLU en x=0?</span>
+<span class="keyword">for</span> <span class="keyword">p</span> <span class="keyword">in</span> [-<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">1.0</span>]:
+    <span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="keyword">p</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
+    <span class="keyword">y</span> = <span class="keyword">torch</span>.<span class="function">relu</span>(<span class="keyword">x</span>)
+    <span class="keyword">y</span>.<span class="function">backward</span>()
+    <span class="function">print</span>(<span class="keyword">f</span><span class="string">"x={p:+.1f}: "</span>
+          <span class="keyword">f</span><span class="string">"ReLU={y.item():.1f}, "</span>
+          <span class="keyword">f</span><span class="string">"derivada={x.grad.item():.1f}"</span>)
+
+<span class="comment"># Salida esperada:</span>
+<span class="comment"># x=-1.0: ReLU=0.0, derivada=0.0</span>
+<span class="comment"># x=+0.0: ReLU=0.0, derivada=0.0  ← subgradiente</span>
+<span class="comment"># x=+1.0: ReLU=1.0, derivada=1.0</span></div>
             <div class="viz-box"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.39952pt" height="238.79952pt" viewBox="0 0 656.39952 238.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -3642,28 +3575,6 @@ z
   </clipPath>
  </defs>
 </svg></div>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                    <span class="terminal-title">python — ¿qué hace PyTorch en x=0?</span>
-                </div>
-                <div class="terminal-body"><span class="prompt">>>> </span><span class="comment-out">for p in [-1.0, 0.0, 1.0]:</span>
-<span class="prompt">... </span><span class="comment-out">    x = torch.tensor(p, requires_grad=True)</span>
-<span class="prompt">... </span><span class="comment-out">    y = torch.relu(x)</span>
-<span class="prompt">... </span><span class="comment-out">    y.backward()</span>
-<span class="prompt">... </span><span class="comment-out">    print(f"x={p:+.1f}: ReLU={y.item()}, "</span>
-<span class="prompt">... </span><span class="comment-out">          f"derivada={x.grad.item()}")</span>
-
-<span class="output">x=-1.0: ReLU=</span><span class="highlight">0.0</span><span class="output">, derivada=</span><span class="highlight">0.0</span>
-<span class="output">x=+0.0: ReLU=</span><span class="highlight">0.0</span><span class="output">, derivada=</span><span class="highlight">0.0</span>  <span class="comment-out">←</span>
-<span class="output">x=+1.0: ReLU=</span><span class="highlight">1.0</span><span class="output">, derivada=</span><span class="highlight">1.0</span>
-
-<span class="comment-out"># En x=0, PyTorch escoge 0 como
-# subgradiente válido (podría ser
-# cualquier valor entre 0 y 1).</span></div>
-            </div>
         </div>
         <div class="key-point">
             <h4>La respuesta: subgradientes</h4>
@@ -3682,14 +3593,14 @@ z
             <div class="content-box">
                 <h3>El "monstruo"</h3>
                 <p>En 1872, Karl Weierstrass construyó:</p>
-                <div class="formula-box" style="font-size: 16px; margin-top: 10px;">
+                <div class="formula-box" style="font-size: 15px; margin-top: 8px;">
                     W(x) = Σ aⁿ cos(bⁿπx)
                 </div>
-                <p style="margin-top: 10px;">con 0 &lt; a &lt; 1 y b entero impar tal que ab &gt; 1 + 3π/2. Es continua en todo punto y derivable en ninguno.</p>
+                <p style="margin-top: 8px;">con 0 &lt; a &lt; 1 y b entero impar tal que ab &gt; 1 + 3π/2. Es continua en todo punto y derivable en ninguno.</p>
             </div>
             <div class="content-box">
                 <h3>Reacciones de la época</h3>
-                <div class="quote-box" style="margin-bottom: 10px;">
+                <div class="quote-box" style="margin-bottom: 8px;">
                     "Una lamentable calamidad."
                     <span class="quote-author">Charles Hermite, 1893</span>
                 </div>
@@ -3739,6 +3650,7 @@ z
         <div class="code-and-viz">
             <div class="code-box"><span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
 <span class="keyword">import</span> <span class="keyword">pandas</span> <span class="keyword">as</span> <span class="keyword">pd</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
 
 <span class="comment"># Cargar serie diaria del BCCR</span>
 <span class="keyword">df</span> = <span class="keyword">pd</span>.<span class="function">read_csv</span>(<span class="string">'tipo_cambio_bccr.csv'</span>,
@@ -3747,13 +3659,20 @@ z
 <span class="keyword">t</span>  = <span class="keyword">np</span>.<span class="function">arange</span>(<span class="function">len</span>(<span class="keyword">tc</span>))
 
 <span class="comment"># Velocidad y aceleración</span>
-<span class="keyword">velocidad</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">tc</span>, <span class="keyword">t</span>)
-<span class="keyword">aceleracion</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">velocidad</span>, <span class="keyword">t</span>)
+<span class="keyword">vel</span>  = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">tc</span>, <span class="keyword">t</span>)
+<span class="keyword">acel</span> = <span class="keyword">np</span>.<span class="function">gradient</span>(<span class="keyword">vel</span>, <span class="keyword">t</span>)
 
-<span class="comment"># Fecha del mínimo histórico</span>
-<span class="keyword">idx</span> = <span class="keyword">tc</span>.<span class="function">argmin</span>()
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Mínimo: {tc[idx]:.2f} CRC/USD"</span>)
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Fecha: {df.fecha[idx].date()}"</span>)</div>
+<span class="comment"># Mínimo histórico</span>
+<span class="keyword">i</span> = <span class="keyword">tc</span>.<span class="function">argmin</span>()
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Mínimo: {tc[i]:.2f} CRC/USD"</span>)
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Fecha:  {df.fecha[i].date()}"</span>)
+
+<span class="comment"># Graficar tipo de cambio, velocidad y aceleración</span>
+<span class="keyword">fig</span>, <span class="keyword">ax</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(<span class="number">3</span>, <span class="number">1</span>, <span class="keyword">figsize</span>=(<span class="number">10</span>, <span class="number">6</span>), <span class="keyword">sharex</span>=<span class="keyword">True</span>)
+<span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">plot</span>(<span class="keyword">df</span>.<span class="keyword">fecha</span>, <span class="keyword">tc</span>);  <span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">set_title</span>(<span class="string">"CRC/USD"</span>)
+<span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">plot</span>(<span class="keyword">df</span>.<span class="keyword">fecha</span>, <span class="keyword">vel</span>);  <span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">set_title</span>(<span class="string">"Velocidad"</span>)
+<span class="keyword">ax</span>[<span class="number">2</span>].<span class="function">plot</span>(<span class="keyword">df</span>.<span class="keyword">fecha</span>, <span class="keyword">acel</span>); <span class="keyword">ax</span>[<span class="number">2</span>].<span class="function">set_title</span>(<span class="string">"Aceleración"</span>)
+<span class="keyword">plt</span>.<span class="function">show</span>()</div>
             <div class="viz-box"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.39952pt" height="404.39952pt" viewBox="0 0 656.39952 404.39952" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -6780,19 +6699,29 @@ z
     <div class="slide-content">
         <div class="code-and-viz">
             <div class="code-box"><span class="keyword">import</span> <span class="keyword">sympy</span> <span class="keyword">as</span> <span class="keyword">sp</span>
+<span class="keyword">import</span> <span class="keyword">numpy</span> <span class="keyword">as</span> <span class="keyword">np</span>
+<span class="keyword">import</span> <span class="keyword">matplotlib.pyplot</span> <span class="keyword">as</span> <span class="keyword">plt</span>
 
-<span class="comment"># T(t): llegadas acumuladas en miles</span>
-<span class="comment"># t en meses del año</span>
+<span class="comment"># T(t): llegadas acumuladas en miles, t en meses</span>
 <span class="keyword">t</span> = <span class="keyword">sp</span>.<span class="function">symbols</span>(<span class="string">'t'</span>, <span class="keyword">positive</span>=<span class="keyword">True</span>)
 <span class="keyword">T</span> = <span class="number">200</span>*<span class="keyword">t</span> + <span class="number">15</span>*<span class="keyword">t</span>**<span class="number">2</span> - <span class="number">0.4</span>*<span class="keyword">t</span>**<span class="number">3</span>
 
-<span class="comment"># Flujo instantáneo (T')</span>
+<span class="comment"># Flujo instantáneo: derivada simbólica</span>
 <span class="keyword">flujo</span> = <span class="keyword">sp</span>.<span class="function">diff</span>(<span class="keyword">T</span>, <span class="keyword">t</span>)
 <span class="function">print</span>(<span class="string">"T'(t) ="</span>, <span class="keyword">flujo</span>)
 
-<span class="comment"># Pico: cuando T''(t) = 0</span>
+<span class="comment"># Pico de temporada: cuando T''(t) = 0</span>
 <span class="keyword">pico</span> = <span class="keyword">sp</span>.<span class="function">solve</span>(<span class="keyword">sp</span>.<span class="function">diff</span>(<span class="keyword">flujo</span>, <span class="keyword">t</span>), <span class="keyword">t</span>)
-<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Pico de temporada: mes {float(pico[0]):.1f}"</span>)</div>
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Pico de temporada: mes {float(pico[0]):.1f}"</span>)
+
+<span class="comment"># Graficar T(t) y T'(t)</span>
+<span class="keyword">T_fn</span>     = <span class="keyword">sp</span>.<span class="function">lambdify</span>(<span class="keyword">t</span>, <span class="keyword">T</span>,     <span class="string">'numpy'</span>)
+<span class="keyword">flujo_fn</span> = <span class="keyword">sp</span>.<span class="function">lambdify</span>(<span class="keyword">t</span>, <span class="keyword">flujo</span>, <span class="string">'numpy'</span>)
+<span class="keyword">ts</span> = <span class="keyword">np</span>.<span class="function">linspace</span>(<span class="number">1</span>, <span class="number">12</span>, <span class="number">200</span>)
+<span class="keyword">fig</span>, <span class="keyword">ax</span> = <span class="keyword">plt</span>.<span class="function">subplots</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="keyword">figsize</span>=(<span class="number">10</span>, <span class="number">3.5</span>))
+<span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">plot</span>(<span class="keyword">ts</span>, <span class="keyword">T_fn</span>(<span class="keyword">ts</span>));     <span class="keyword">ax</span>[<span class="number">0</span>].<span class="function">set_title</span>(<span class="string">"T(t)"</span>)
+<span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">plot</span>(<span class="keyword">ts</span>, <span class="keyword">flujo_fn</span>(<span class="keyword">ts</span>)); <span class="keyword">ax</span>[<span class="number">1</span>].<span class="function">set_title</span>(<span class="string">"T'(t)"</span>)
+<span class="keyword">plt</span>.<span class="function">show</span>()</div>
             <div class="viz-box"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.392722pt" height="238.79952pt" viewBox="0 0 656.392722 238.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -8794,7 +8723,7 @@ z
         <p class="slide-subtitle">Datos del ICE — la derivada como herramienta de operación</p>
     </div>
     <div class="slide-content">
-        <div class="viz-box" style="max-height: 300px;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.39952pt" height="238.79952pt" viewBox="0 0 656.39952 238.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <div class="viz-box" style="max-height: 280px;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="656.39952pt" height="238.79952pt" viewBox="0 0 656.39952 238.79952" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
@@ -11436,7 +11365,7 @@ z
                 <h3>Newton, 1687</h3>
                 <p><strong>Problema:</strong> describir el movimiento de un planeta.</p>
                 <p><strong>Solución:</strong> tasa de cambio instantánea de la posición.</p>
-                <div class="formula-box" style="font-size: 17px; margin-top: 10px;">
+                <div class="formula-box" style="font-size: 16px; margin-top: 8px;">
                     v(t) = s'(t)<br>
                     a(t) = s''(t)
                 </div>
@@ -11445,7 +11374,7 @@ z
                 <h3>OpenAI, 2026</h3>
                 <p><strong>Problema:</strong> entrenar un modelo de lenguaje.</p>
                 <p><strong>Solución:</strong> tasa de cambio instantánea del error.</p>
-                <div class="formula-box" style="font-size: 17px; margin-top: 10px;">
+                <div class="formula-box" style="font-size: 16px; margin-top: 8px;">
                     ∇<sub>θ</sub> L(θ) = derivada del loss<br>
                     θ ← θ - η · ∇<sub>θ</sub> L
                 </div>
@@ -11460,13 +11389,12 @@ z
 <div class="slide">
     <div class="slide-header">
         <h2 class="slide-title">Errores comunes (la trampa del gradiente acumulado)</h2>
-        <p class="slide-subtitle">Lo más reportado por estudiantes de IA en su primera red</p>
+        <p class="slide-subtitle">El error más reportado por estudiantes de IA en su primera red</p>
     </div>
     <div class="slide-content">
-        <div class="code-and-viz">
-            <div class="code-box"><span class="keyword">import</span> <span class="keyword">torch</span>
+        <div class="code-box code-full"><span class="keyword">import</span> <span class="keyword">torch</span>
 
-<span class="comment"># Calculamos f'(2) tres veces seguidas...</span>
+<span class="comment"># Calculamos f'(2) tres veces seguidas sobre la misma variable...</span>
 <span class="keyword">x</span> = <span class="keyword">torch</span>.<span class="function">tensor</span>(<span class="number">2.0</span>, <span class="keyword">requires_grad</span>=<span class="keyword">True</span>)
 
 <span class="keyword">for</span> <span class="keyword">i</span> <span class="keyword">in</span> <span class="function">range</span>(<span class="number">3</span>):
@@ -11474,28 +11402,15 @@ z
     <span class="keyword">f</span>.<span class="function">backward</span>()
     <span class="function">print</span>(<span class="keyword">f</span><span class="string">"Iteración {i}: x.grad = {x.grad.item()}"</span>)
 
-<span class="comment"># ¿Qué esperan? ¿9, 9, 9?</span>
-<span class="comment"># PyTorch ACUMULA gradientes</span>
-<span class="comment"># entre llamadas a backward()</span></div>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dot red"></div>
-                    <div class="terminal-dot yellow"></div>
-                    <div class="terminal-dot green"></div>
-                    <span class="terminal-title">python — gradiente acumulado</span>
-                </div>
-                <div class="terminal-body"><span class="output">Iteración 0: x.grad = </span><span class="highlight">9.0</span>
-<span class="output">Iteración 1: x.grad = </span><span class="highlight">18.0</span>  <span class="comment-out">← se sumó</span>
-<span class="output">Iteración 2: x.grad = </span><span class="highlight">27.0</span>  <span class="comment-out">← se sumó otra vez</span>
+<span class="comment"># Salida en Colab:</span>
+<span class="comment"># Iteración 0: x.grad = 9.0</span>
+<span class="comment"># Iteración 1: x.grad = 18.0   ← se sumó</span>
+<span class="comment"># Iteración 2: x.grad = 27.0   ← se sumó otra vez</span>
 
-<span class="comment-out"># Solución: reiniciar antes</span>
-<span class="comment-out"># de cada backward()</span>
-<span class="prompt">>>> </span><span class="comment-out">x.grad.zero_()</span>
-<span class="prompt">>>> </span><span class="comment-out">f.backward()</span>
-<span class="prompt">>>> </span><span class="comment-out">print(x.grad.item())</span>
-<span class="output">→ </span><span class="success">9.0</span>  <span class="comment-out"># ahora sí, cada vez</span></div>
-            </div>
-        </div>
+<span class="comment"># Solución correcta: reiniciar antes de cada backward()</span>
+<span class="keyword">x</span>.<span class="keyword">grad</span>.<span class="function">zero_</span>()
+<span class="keyword">f</span> = <span class="keyword">x</span>**<span class="number">3</span> - <span class="number">3</span>*<span class="keyword">x</span>; <span class="keyword">f</span>.<span class="function">backward</span>()
+<span class="function">print</span>(<span class="keyword">f</span><span class="string">"Tras zero_(): x.grad = {x.grad.item()}"</span>)   <span class="comment"># 9.0 limpio</span></div>
         <div class="key-point">
             <h4>Por qué PyTorch fue diseñado así</h4>
             <p>En entrenamiento real, a veces conviene acumular gradientes a propósito (gradient accumulation) cuando el batch no cabe en la memoria de la GPU. PyTorch decidió que acumular fuera el comportamiento por defecto, así que recordar zero_() es responsabilidad del programador.</p>
@@ -11617,13 +11532,13 @@ z
             <p>El descenso de gradiente, la backpropagation, los optimizadores Adam y AdamW son todos cálculo diferencial aplicado. Lo que vieron hoy es el motor matemático del estado del arte en inteligencia artificial.</p>
         </div>
         <div class="highlight-box">
-            <p style="text-align: center; font-size: 18px;">Nos vemos en las salas. Pueden empezar la actividad cuando los grupos estén formados en cada sala reducida.</p>
+            <p style="text-align: center; font-size: 17px;">Nos vemos en las salas. Pueden empezar la actividad cuando los grupos estén formados en cada sala reducida.</p>
         </div>
     </div>
 </div>
 
 <div class="slide cover-slide">
-    <h1 class="cover-title" style="font-size: 54px;">Hora de la actividad</h1>
+    <h1 class="cover-title" style="font-size: 50px;">Hora de la actividad</h1>
     <p class="cover-subtitle">50 minutos en salas, en grupo</p>
     <div class="cover-info">
         <p>El documento de la actividad está en el repositorio del curso.<br>
